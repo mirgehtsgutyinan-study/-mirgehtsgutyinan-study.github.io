@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="IELTS 플랜">
+<title>IELTS 5주 플랜</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;600&family=DM+Mono:wght@400;500&display=swap');
+
+  :root {
+    --bg: #F9F8F4;
+    --surface: #FFFFFF;
+    --border: #E8E4DC;
+    --text: #1E1C18;
+    --muted: #8A8478;
+    --w1: #6B8F72;
+    --w2: #6B8F72;
+    --w3: #B8864E;
+    --w4: #7B6E9E;
+    --w5: #B86868;
+    --listen: #EAF3F6;
+    --listen-b: #9ECEDD;
+    --listen-t: #2B6E84;
+    --read: #EDF5E8;
+    --read-b: #9DC99D;
+    --read-t: #2E6B2E;
+    --write: #FDF3E8;
+    --write-b: #DDB96E;
+    --write-t: #7A4E18;
+    --speak: #F3EAF7;
+    --speak-b: #C09DD8;
+    --speak-t: #5A2880;
+    --review: #FFF0EE;
+    --review-b: #EAADAD;
+    --review-t: #8C2E2E;
+    --vocab: #EDF5ED;
+    --vocab-b: #A4C8A4;
+    --vocab-t: #2E562E;
+    --rest: #F5F2EC;
+    --rest-b: #C8BEA8;
+    --rest-t: #5A5040;
+    --finish: #F3EEF7;
+    --finish-b: #C0B0D4;
+    --finish-t: #4A3060;
+    --check-size: 22px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+  body {
+    font-family: 'Noto Serif KR', Georgia, serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    padding-bottom: 40px;
+  }
+
+  /* Header */
+  .header {
+    text-align: center;
+    padding: 28px 20px 20px;
+  }
+  .header-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .header h1 {
+    font-size: 22px;
+    font-weight: 300;
+    letter-spacing: -0.01em;
+    color: var(--text);
+    margin-bottom: 6px;
+  }
+  .header-sub {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* Progress bar */
+  .progress-wrap {
+    margin: 0 20px 20px;
+    background: var(--border);
+    border-radius: 10px;
+    height: 6px;
+    overflow: hidden;
+  }
+  .progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, var(--w1), var(--w5));
+    border-radius: 10px;
+    transition: width 0.4s ease;
+  }
+  .progress-label {
+    text-align: center;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+
+  /* Test time info */
+  .info-toggle {
+    display: block;
+    margin: 0 auto 16px;
+    padding: 6px 16px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    border-radius: 20px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    cursor: pointer;
+  }
+  .info-box {
+    margin: 0 16px 16px;
+    background: var(--surface);
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    padding: 14px 16px;
+    display: none;
+  }
+  .info-box.open { display: block; }
+  .info-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 10px;
+    font-size: 13px;
+  }
+  .info-row:last-child { margin-bottom: 0; }
+  .info-icon { font-size: 16px; flex-shrink: 0; }
+  .info-subject { font-weight: 600; color: var(--text); min-width: 80px; }
+  .info-detail { color: var(--muted); font-size: 12px; line-height: 1.5; }
+
+  /* Week tabs */
+  .tabs {
+    display: flex;
+    gap: 6px;
+    padding: 0 16px;
+    margin-bottom: 16px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .tabs::-webkit-scrollbar { display: none; }
+  .tab {
+    flex-shrink: 0;
+    padding: 7px 14px;
+    border-radius: 20px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    cursor: pointer;
+    border: 2px solid var(--border);
+    background: var(--surface);
+    color: var(--muted);
+    transition: all 0.15s;
+    white-space: nowrap;
+  }
+  .tab.active {
+    color: white;
+    border-color: transparent;
+  }
+
+  /* Week header */
+  .week-header {
+    margin: 0 16px 14px;
+    padding: 12px 16px;
+    border-radius: 12px;
+    text-align: center;
+  }
+  .week-header-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .week-header-theme {
+    font-size: 15px;
+    font-weight: 300;
+  }
+
+  /* Day cards */
+  .days { padding: 0 16px; display: flex; flex-direction: column; gap: 12px; }
+
+  .day-card {
+    background: var(--surface);
+    border-radius: 14px;
+    border: 1px solid var(--border);
+    overflow: hidden;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+  }
+  .day-card.weekend {
+    background: #F8F7F3;
+    opacity: 0.85;
+  }
+
+  .day-head {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border);
+  }
+  .day-dot {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: white;
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    font-weight: 500;
+    flex-shrink: 0;
+  }
+  .day-info { flex: 1; }
+  .day-date {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: var(--muted);
+  }
+  .day-note {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    margin-top: 2px;
+  }
+
+  /* Slot items */
+  .slots { padding: 10px; display: flex; flex-direction: column; gap: 6px; }
+
+  .slot {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 10px 12px;
+    border-radius: 10px;
+    border: 1px solid;
+    cursor: pointer;
+    transition: opacity 0.2s;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+  .slot.done { opacity: 0.45; }
+  .slot.done .slot-detail { text-decoration: line-through; }
+
+  .slot-icon { font-size: 17px; flex-shrink: 0; margin-top: 1px; }
+
+  .slot-content { flex: 1; min-width: 0; }
+
+  .slot-meta {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-bottom: 4px;
+  }
+  .slot-time {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    background: rgba(255,255,255,0.8);
+    padding: 1px 6px;
+    border-radius: 4px;
+    border: 1px solid rgba(0,0,0,0.08);
+    flex-shrink: 0;
+  }
+  .slot-subject {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    flex-shrink: 0;
+  }
+
+  .slot-detail {
+    font-size: 13px;
+    line-height: 1.5;
+    color: #444;
+  }
+
+  /* Checkbox */
+  .slot-check {
+    flex-shrink: 0;
+    width: var(--check-size);
+    height: var(--check-size);
+    border-radius: 50%;
+    border: 2px solid rgba(0,0,0,0.15);
+    background: rgba(255,255,255,0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2px;
+    transition: all 0.2s;
+    font-size: 12px;
+  }
+  .slot.done .slot-check {
+    background: rgba(0,0,0,0.15);
+    border-color: transparent;
+  }
+
+  /* Subject colors */
+  .s-listening  { background: var(--listen);  border-color: var(--listen-b);  }
+  .s-reading    { background: var(--read);    border-color: var(--read-b);    }
+  .s-writing    { background: var(--write);   border-color: var(--write-b);   }
+  .s-speaking   { background: var(--speak);   border-color: var(--speak-b);   }
+  .s-review     { background: var(--review);  border-color: var(--review-b);  }
+  .s-vocab      { background: var(--vocab);   border-color: var(--vocab-b);   }
+  .s-rest       { background: var(--rest);    border-color: var(--rest-b);    }
+  .s-finish     { background: var(--finish);  border-color: var(--finish-b);  }
+  .s-mock       { background: #FEF0F0;        border-color: #E8AAAA;          }
+
+  .t-listening  { color: var(--listen-t);  }
+  .t-reading    { color: var(--read-t);    }
+  .t-writing    { color: var(--write-t);   }
+  .t-speaking   { color: var(--speak-t);   }
+  .t-review     { color: var(--review-t);  }
+  .t-vocab      { color: var(--vocab-t);   }
+  .t-rest       { color: var(--rest-t);    }
+  .t-finish     { color: var(--finish-t);  }
+  .t-mock       { color: #8C2222;          }
+
+  /* Legend */
+  .legend {
+    margin: 12px 16px 0;
+    background: var(--surface);
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    padding: 12px 14px;
+  }
+  .legend-title {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+  .legend-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .legend-chip {
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    border: 1px solid;
+  }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    margin-top: 24px;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    padding: 0 20px;
+  }
+  
+  /* Reset button */
+  .reset-btn {
+    display: block;
+    margin: 16px auto 0;
+    padding: 8px 18px;
+    background: none;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    cursor: pointer;
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-label">IELTS Academic · 컴퓨터 기반 · 2026. 5</div>
+  <h1>5주 학습 플랜</h1>
+  <div class="header-sub">주 5일(월~금) · 11:00 시작 · 목표 Band 6.0</div>
+</div>
+
+<div class="progress-label" id="progressLabel">완료 0 / 0</div>
+<div class="progress-wrap"><div class="progress-bar" id="progressBar" style="width:0%"></div></div>
+
+<button class="info-toggle" onclick="toggleInfo()">▼ 컴퓨터 기반 시험 시간 확인</button>
+<div class="info-box" id="infoBox">
+  <div class="info-row"><span class="info-icon">🎧</span><div><div class="info-subject">Listening</div><div class="info-detail">약 32분 (30분 청취 + 2분 확인) — 답안이전 없음, 듣는 즉시 입력</div></div></div>
+  <div class="info-row"><span class="info-icon">📖</span><div><div class="info-subject">Reading</div><div class="info-detail">60분 — 3개 지문, 40문제</div></div></div>
+  <div class="info-row"><span class="info-icon">✍️</span><div><div class="info-subject">Writing</div><div class="info-detail">60분 — Task1 20분 + Task2 40분 (Task2 배점 높음)</div></div></div>
+  <div class="info-row"><span class="info-icon">🎤</span><div><div class="info-subject">Speaking</div><div class="info-detail">11~14분 — Part1·2·3, 별도 일정 or 당일</div></div></div>
+</div>
+
+<div class="tabs" id="tabs"></div>
+<div class="week-header" id="weekHeader"></div>
+<div class="days" id="days"></div>
+<div class="legend">
+  <div class="legend-title">색상 안내</div>
+  <div class="legend-items">
+    <span class="legend-chip s-listening t-listening">Listening</span>
+    <span class="legend-chip s-reading t-reading">Reading</span>
+    <span class="legend-chip s-writing t-writing">Writing</span>
+    <span class="legend-chip s-speaking t-speaking">Speaking</span>
+    <span class="legend-chip s-review t-review">오답복기</span>
+    <span class="legend-chip s-mock t-mock">풀 모의고사</span>
+    <span class="legend-chip s-vocab t-vocab">단어복습</span>
+    <span class="legend-chip s-rest t-rest">휴식</span>
+  </div>
+</div>
+<button class="reset-btn" onclick="confirmReset()">이 주차 체크 초기화</button>
+<div class="footer">항목을 탭하면 완료 체크 · 껐다 켜도 저장돼요 ✍️</div>
+
+<script>
+const WEEKS = [
+  {
+    label:"1주차", theme:"진단 + 형식 파악", color:"#6B8F72", dates:"5/1(금) 첫날",
+    days:[
+      { day:"금", date:"5/1 (금)", note:"🎉 D-Day 1 — 시작!", slots:[
+        { time:"11:00–11:32", subj:"Listening", cls:"listening", icon:"🎧", detail:"모의고사 Listening 실전 (30분 + 확인 2분)" },
+        { time:"11:32–12:10", subj:"오답복기",  cls:"review",    icon:"📝", detail:"Listening 오답 분석 — 틀린 이유 + 어휘 정리" },
+        { time:"13:00–14:00", subj:"Reading",   cls:"reading",   icon:"📖", detail:"모의고사 Reading 실전 (60분 엄수)" },
+        { time:"14:00–14:40", subj:"오답복기",  cls:"review",    icon:"📝", detail:"Reading 오답 분석 — 유형별 틀린 이유 정리" },
+        { time:"14:40–15:00", subj:"Writing",   cls:"writing",   icon:"✍️", detail:"Task 1 구조 이론 훑기 — 그래프/표 기술 패턴" },
+        { time:"저녁 20분",    subj:"Speaking",  cls:"speaking",  icon:"🎤", detail:"Part 1 질문 3개 즉흥 답변 녹음" },
+      ]},
+      { day:"토", date:"5/2 (토)", weekend:true, slots:[
+        { time:"자유", subj:"단어복습", cls:"vocab", icon:"📚", detail:"첫날 오답 어휘 정리 + 암기" },
+      ]},
+      { day:"일", date:"5/3 (일)", weekend:true, slots:[
+        { time:"자유", subj:"휴식", cls:"rest", icon:"🌿", detail:"영어 콘텐츠 가볍게 감상 — 공부 강요 금지 🌿" },
+      ]},
+    ]
+  },
+  {
+    label:"2주차", theme:"진단 + 형식 파악", color:"#6B8F72", dates:"5/4(월) – 5/8(금)",
+    days:[
+      { day:"월", date:"5/4 (월)", slots:[
+        { time:"11:00–11:32", subj:"Listening", cls:"listening", icon:"🎧", detail:"모의고사 Listening 실전 (32분)" },
+        { time:"11:32–12:10", subj:"오답복기",  cls:"review",    icon:"📝", detail:"Listening 오답 — 영국/호주 발음 집중 재청취" },
+        { time:"13:00–14:00", subj:"Writing",   cls:"writing",   icon:"✍️", detail:"Task 1 샘플 답안 분석 (Band 6/7 비교)" },
+        { time:"14:00–15:00", subj:"Writing",   cls:"writing",   icon:"✍️", detail:"Task 2 에세이 구조 이론 (Intro → Body → Conclusion)" },
+        { time:"저녁 20분",    subj:"Speaking",  cls:"speaking",  icon:"🎤", detail:"Part 2 카드 1개 — 2분 스피치 연습" },
+      ]},
+      { day:"화", date:"5/5 (화)", slots:[
+        { time:"11:00–12:00", subj:"Reading",   cls:"reading",   icon:"📖", detail:"모의고사 Reading 실전 (60분 엄수)" },
+        { time:"12:00–12:40", subj:"오답복기",  cls:"review",    icon:"📝", detail:"Reading 오답 — True/False/Not Given 유형 집중 분석" },
+        { time:"13:30–14:02", subj:"Listening", cls:"listening", icon:"🎧", detail:"모의고사 Listening 실전 (32분)" },
+        { time:"14:02–14:40", subj:"오답복기",  cls:"review",    icon:"📝", detail:"Listening 섹션별 오답 패턴 파악" },
+        { time:"저녁 20분",    subj:"Speaking",  cls:"speaking",  icon:"🎤", detail:"Part 1 질문 3개 녹음 후 셀프 피드백" },
+      ]},
+      { day:"수", date:"5/6 (수)", slots:[
+        { time:"11:00–11:20", subj:"Writing",   cls:"writing",   icon:"✍️", detail:"Task 1 직접 작성 (20분 타이머 엄수)" },
+        { time:"11:20–12:00", subj:"오답복기",  cls:"review",    icon:"📝", detail:"Task 1 샘플 답안과 비교 — 표현/구조 차이 분석" },
+        { time:"13:00–14:00", subj:"Reading",   cls:"reading",   icon:"📖", detail:"Matching Headings 유형 집중 연습 (60분)" },
+        { time:"14:00–14:40", subj:"오답복기",  cls:"review",    icon:"📝", detail:"Reading 오답 분석" },
+        { time:"저녁 30분",    subj:"Listening", cls:"listening", icon:"🎧", detail:"섹션 3·4 (강의/토론) 집중 훈련 (32분)" },
+      ]},
+      { day:"목", date:"5/7 (목)", slots:[
+        { time:"11:00–11:40", subj:"Writing",   cls:"writing",   icon:"✍️", detail:"Task 2 에세이 첫 작성 (40분 타이머 엄수)" },
+        { time:"11:40–12:20", subj:"오답복기",  cls:"review",    icon:"📝", detail:"Task 2 샘플 Band 6 답안과 비교 분석" },
+        { time:"13:00–14:00", subj:"Reading",   cls:"reading",   icon:"📖", detail:"모의고사 Reading 실전 (60분 엄수)" },
+        { time:"14:00–14:40", subj:"오답복기",  cls:"review",    icon:"📝", detail:"Reading 오답 분석 + 어휘 정리" },
+        { time:"저녁 20분",    subj:"Speaking",  cls:"speaking",  icon:"🎤", detail:"Part 3 주제 2개 — 의견 + 이유 즉흥 연습" },
+      ]},
+      { day:"금", date:"5/8 (금)", note:"🔥 주간 미니 실전", slots:[
+        { time:"11:00–11:32", subj:"Listening",   cls:"listening", icon:"🎧", detail:"실전 (32분)" },
+        { time:"11:32–12:32", subj:"Reading",     cls:"reading",   icon:"📖", detail:"실전 (60분 엄수)" },
+        { time:"13:30–14:30", subj:"Writing",     cls:"writing",   icon:"✍️", detail:"Task 1 (20분) + Task 2 (40분) 실전처럼" },
+        { time:"14:30–15:10", subj:"오답복기",    cls:"review",    icon:"📝", detail:"L·R·W 전 영역 채점 + 약점 기록" },
+        { time:"저녁 20분",    subj:"Speaking",   cls:"speaking",  icon:"🎤", detail:"Part 1·2 연속 연습" },
+      ]},
+      { day:"토", date:"5/9 (토)", weekend:true, slots:[{ time:"자유", subj:"단어복습", cls:"vocab", icon:"📚", detail:"한 주 오답 어휘 정리 + 암기" }]},
+      { day:"일", date:"5/10 (일)", weekend:true, slots:[{ time:"자유", subj:"휴식", cls:"rest", icon:"🌿", detail:"영어 콘텐츠 가볍게 감상 — 공부 강요 금지" }]},
+    ]
+  },
+  {
+    label:"3주차", theme:"Writing 집중", color:"#B8864E", dates:"5/11(월) – 5/15(금)",
+    days:[
+      { day:"월", date:"5/11 (월)", slots:[
+        { time:"11:00–11:40", subj:"Writing",   cls:"writing",   icon:"✍️", detail:"Task 2 작성 — Opinion Essay 유형 (40분 타이머)" },
+        { time:"11:40–12:20", subj:"오답복기",  cls:"review",    icon:"📝", detail:"Task 2 채점 기준 4가지로 자가 점검" },
+        { time:"13:00–13:32", subj:"Listening", cls:"listening", icon:"🎧", detail:"모의고사 Listening 실전 (32분)" },
+        { time:"13:32–14:10", subj:"오답복기",  cls:"review",    icon:"📝", detail:"Listening 오답 분석" },
+        { time:"14:10–15:10", subj:"Reading",   cls:"reading",   icon:"📖", detail:"모의고사 Reading 실전 (60분)" },
+        { time:"저녁 20분",    subj:"Speaking",  cls:"speaking",  icon:"🎤", detail:"Part 1 질문 5개 연속 답변 녹음" },
+      ]},
+      { day:"화", date:"5/12 (화)", slots:[
+        { time:"11:00–11:20", subj:"Writing",   cls:"writing",   icon:"✍️", detail:"Task 1 작성 — Bar Chart / Pie Chart (20분 타이머)" },
+        { time:"11:20–12:00", subj:"오답복기",  cls:"review",    icon:"📝", detail:"Task 1 샘플과 비교 — 표현/데이터 기술 분석" },
+        { time:"13:00–14:00", subj:"Reading",   cls:"reading",   icon:"📖", detail:"Summary Completion 유형 집중 (60분)" },
+        { time:"14:00–14:40", subj:"오답복기",  cls:"review",    icon:"📝", detail:"Reading 오답 분석" },
+        { time:"저녁 20분",    subj:"Speaking",  cls:"speaking",  icon:"🎤", detail:"Part 2 새 카드 — 예술/문화 주제" },
+      ]},
+      { day:"수", date:"5/13 (수)", slots:[
+        { time:"11:00–11:40", subj:"Writing",   cls:"writing",   icon:"✍️", detail:"Task 2 작성 — Discussion Essay 유형 (40분 타이머)" },
+        { time:"11:40–12:20", subj:"오답복기",  cls:"review",    icon:"📝", detail:"Task 2 Cohesion & Coherence 집중 점검" },
+        { time:"13:00–13:32", subj:"Listening", cls:"listening", icon:"🎧", detail:"모의고사 Listening 실전 — 섹션 3·4 집중 (32분)" },
+        { time:"13:32–14:10", subj:"오답복기",  cls:"review",    icon:"📝", detail:"Listening 오답 분석" },
+        { time:"14:10–15:10", subj:"Reading",   cls:"reading",   icon:"📖", detail:"모의고사 Reading 실전 (60분 엄수)" },
+        { time:"저녁 20분",    subj:"Speaking",  cls:"speaking",  icon:"🎤", detail:"Part 3 사회/문화 주제 의견 전개 연습" },
+      ]},
+      { day:"목", date:"5/14 (목)", slots:[
+        { time:"11:00–11:20", subj:"Writing",   cls:"writing",   icon:"✍️", detail:"Task 1 작성 — Line Graph / Process Diagram (20분)" },
+        { time:"11:20–12:00", subj:"오답복기",  cls:"review",    icon:"📝", detail:"Task 1 Lexical Resource — 데이터 표현 어휘 정리" },
+        { time:"13:00–14:00", subj:"Reading",   cls:"reading",   icon:"📖", detail:"Multiple Choice 유형 집중 (60분)" },
+        { time:"14:00–14:40", subj:"오답복기",  cls:"review",    icon:"📝", detail:"Reading 오답 분석" },
+        { time:"저녁 20분",    subj:"Speaking",  cls:"speaking",  icon:"🎤", detail:"Part 1+2 연속 연습 (실전처럼)" },
+      ]},
+      { day:"금", date:"5/15 (금)", note:"🔥 주간 미니 실전", slots:[
+        { time:"11:00–11:32", subj:"Listening", cls:"listening", icon:"🎧", detail:"실전 (32분)" },
+        { time:"11:32–12:32", subj:"Reading",   cls:"reading",   icon:"📖", detail:"실전 (60분 엄수)" },
+        { time:"13:30–14:30", subj:"Writing",   cls:"writing",   icon:"✍️", detail:"Task 1 (20분) + Task 2 (40분) — Problem & Solution 유형" },
+        { time:"14:30–15:10", subj:"오답복기",  cls:"review",    icon:"📝", detail:"L·R·W 전 영역 채점 + 3주차 약점 정리" },
+        { time:"저녁 20분",    subj:"Speaking",  cls:"speaking",  icon:"🎤", detail:"Part 2·3 연속 녹음 후 셀프 피드백" },
+      ]},
+      { day:"토", date:"5/16 (토)", weekend:true, slots:[{ time:"자유", subj:"단어복습", cls:"vocab", icon:"📚", detail:"한 주 오답 어휘 정리 + 암기" }]},
+      { day:"일", date:"5/17 (일)", weekend:true, slots:[{ time:"자유", subj:"휴식", cls:"rest", icon:"🌿", detail:"영어 콘텐츠 가볍게 감상 — 공부 강요 금지" }]},
+    ]
+  },
+  {
+    label:"4주차", theme:"실전 훈련", color:"#7B6E9E", dates:"5/18(월) – 5/22(금)",
+    days:[
+      { day:"월", date:"5/18 (월)", note:"📋 첫 풀 모의고사", slots:[
+        { time:"11:00–11:32", subj:"Listening", cls:"listening", icon:"🎧", detail:"실전 (32분)" },
+        { time:"11:32–12:32", subj:"Reading",   cls:"reading",   icon:"📖", detail:"실전 (60분 엄수)" },
+        { time:"13:30–14:30", subj:"Writing",   cls:"writing",   icon:"✍️", detail:"Task 1 (20분) + Task 2 (40분) 실전" },
+        { time:"14:30–15:10", subj:"오답복기",  cls:"review",    icon:"📝", detail:"L·R·W 전 영역 채점 + 약점 기록" },
+        { time:"저녁 20분",    subj:"Speaking",  cls:"speaking",  icon:"🎤", detail:"모의 인터뷰 Part 1·2·3 전부 녹음" },
+      ]},
+      { day:"화", date:"5/19 (화)", slots:[
+        { time:"11:00–12:00", subj:"오답복기", cls:"review", icon:"📝", detail:"월요일 Writing 오답 심층 분석 + 재작성" },
+        { time:"12:00–13:00", subj:"오답복기", cls:"review", icon:"📝", detail:"Listening 오답 — 틀린 섹션 재청취 + 이유 분석" },
+        { time:"13:30–14:30", subj:"오답복기", cls:"review", icon:"📝", detail:"Reading 오답 — 오답 지문 재독 + 어휘 정리" },
+        { time:"저녁 20분",   subj:"Speaking", cls:"speaking", icon:"🎤", detail:"녹음 셀프 피드백 + 약한 파트 재녹음" },
+      ]},
+      { day:"수", date:"5/20 (수)", note:"📋 두 번째 풀 모의고사", slots:[
+        { time:"11:00–11:32", subj:"Listening", cls:"listening", icon:"🎧", detail:"실전 (32분)" },
+        { time:"11:32–12:32", subj:"Reading",   cls:"reading",   icon:"📖", detail:"실전 (60분 엄수)" },
+        { time:"13:30–14:30", subj:"Writing",   cls:"writing",   icon:"✍️", detail:"Task 1 (20분) + Task 2 (40분) 실전" },
+        { time:"14:30–15:10", subj:"오답복기",  cls:"review",    icon:"📝", detail:"채점 + 월요일 대비 점수 변화 확인" },
+        { time:"저녁 20분",    subj:"Speaking",  cls:"speaking",  icon:"🎤", detail:"Part 2 예술 관련 주제 스피치" },
+      ]},
+      { day:"목", date:"5/21 (목)", slots:[
+        { time:"11:00–12:00", subj:"오답복기",  cls:"review",    icon:"📝", detail:"수요일 Writing 재작성 + 점검" },
+        { time:"12:00–13:00", subj:"Reading",   cls:"reading",   icon:"📖", detail:"시간 단축 훈련 — 55분 안에 40문제 도전" },
+        { time:"13:00–13:40", subj:"오답복기",  cls:"review",    icon:"📝", detail:"Reading 오답 분석" },
+        { time:"14:00–14:32", subj:"Listening", cls:"listening", icon:"🎧", detail:"섹션 4 강의 유형 집중 (32분)" },
+        { time:"저녁 20분",    subj:"Speaking",  cls:"speaking",  icon:"🎤", detail:"Part 3 추상적 질문 즉흥 답변" },
+      ]},
+      { day:"금", date:"5/22 (금)", note:"📋 세 번째 풀 모의고사", slots:[
+        { time:"11:00–11:32", subj:"Listening", cls:"listening", icon:"🎧", detail:"실전 (32분)" },
+        { time:"11:32–12:32", subj:"Reading",   cls:"reading",   icon:"📖", detail:"실전 (60분 엄수)" },
+        { time:"13:30–14:30", subj:"Writing",   cls:"writing",   icon:"✍️", detail:"Task 1 (20분) + Task 2 (40분) 실전" },
+        { time:"14:30–15:10", subj:"오답복기",  cls:"review",    icon:"📝", detail:"채점 + 이번 주 약점 영역 최종 확인" },
+        { time:"저녁 20분",    subj:"Speaking",  cls:"speaking",  icon:"🎤", detail:"이번 주 Speaking 녹음 전체 다시 듣기" },
+      ]},
+      { day:"토", date:"5/23 (토)", weekend:true, slots:[{ time:"자유", subj:"단어복습", cls:"vocab", icon:"📚", detail:"한 주 오답 어휘 정리 + 암기" }]},
+      { day:"일", date:"5/24 (일)", weekend:true, slots:[{ time:"자유", subj:"휴식", cls:"rest", icon:"🌿", detail:"영어 콘텐츠 가볍게 감상 — 공부 강요 금지" }]},
+    ]
+  },
+  {
+    label:"5주차", theme:"마무리 + 약점 보완", color:"#B86868", dates:"5/25(월) – 5/29(금)",
+    days:[
+      { day:"월", date:"5/25 (월)", note:"📋 네 번째 풀 모의고사", slots:[
+        { time:"11:00–11:32", subj:"Listening", cls:"listening", icon:"🎧", detail:"실전 (32분) — 시험 당일 루틴으로" },
+        { time:"11:32–12:32", subj:"Reading",   cls:"reading",   icon:"📖", detail:"실전 (60분 엄수)" },
+        { time:"13:30–14:30", subj:"Writing",   cls:"writing",   icon:"✍️", detail:"Task 1 (20분) + Task 2 (40분) 실전" },
+        { time:"14:30–15:10", subj:"오답복기",  cls:"review",    icon:"📝", detail:"채점 + 약점 목록 최종 정리" },
+        { time:"저녁 20분",    subj:"Speaking",  cls:"speaking",  icon:"🎤", detail:"Part 1·2·3 전 파트 연속 연습" },
+      ]},
+      { day:"화", date:"5/26 (화)", slots:[
+        { time:"11:00–12:00", subj:"오답복기",  cls:"review",    icon:"📝", detail:"약점 Writing 유형 재작성 + 집중 분석" },
+        { time:"12:00–13:00", subj:"Reading",   cls:"reading",   icon:"📖", detail:"가장 틀린 유형 집중 (60분)" },
+        { time:"13:00–13:40", subj:"오답복기",  cls:"review",    icon:"📝", detail:"Reading 오답 분석" },
+        { time:"14:00–14:32", subj:"Listening", cls:"listening", icon:"🎧", detail:"가장 틀린 섹션 집중 재훈련 (32분)" },
+        { time:"저녁 20분",    subj:"Speaking",  cls:"speaking",  icon:"🎤", detail:"약점 파트 집중 재연습" },
+      ]},
+      { day:"수", date:"5/27 (수)", note:"📋 다섯 번째 풀 모의고사", slots:[
+        { time:"11:00–11:32", subj:"Listening", cls:"listening", icon:"🎧", detail:"실전 (32분)" },
+        { time:"11:32–12:32", subj:"Reading",   cls:"reading",   icon:"📖", detail:"실전 (60분 엄수)" },
+        { time:"13:30–14:30", subj:"Writing",   cls:"writing",   icon:"✍️", detail:"Task 1 (20분) + Task 2 (40분) 실전" },
+        { time:"14:30–15:10", subj:"오답복기",  cls:"review",    icon:"📝", detail:"채점 + 최종 점수 예측" },
+        { time:"저녁 20분",    subj:"Speaking",  cls:"speaking",  icon:"🎤", detail:"Part 1·2·3 셀프 피드백 집중" },
+      ]},
+      { day:"목", date:"5/28 (목)", slots:[
+        { time:"11:00–11:20", subj:"Writing",   cls:"writing",   icon:"✍️", detail:"Task 1 최종 1편 (20분)" },
+        { time:"11:20–12:00", subj:"Writing",   cls:"writing",   icon:"✍️", detail:"Task 2 최종 1편 (40분)" },
+        { time:"12:00–12:40", subj:"오답복기",  cls:"review",    icon:"📝", detail:"Writing 최종 점검 + 표현 정리" },
+        { time:"13:30–14:30", subj:"Reading",   cls:"reading",   icon:"📖", detail:"가볍게 1세트 (60분)" },
+        { time:"14:30–15:00", subj:"오답복기",  cls:"review",    icon:"📝", detail:"전체 오답 노트 최종 정리" },
+      ]},
+      { day:"금", date:"5/29 (금)", note:"🏁 마지막 공부 날!", slots:[
+        { time:"11:00–11:32", subj:"Listening", cls:"listening", icon:"🎧", detail:"마지막 실전 모의고사 (32분)" },
+        { time:"11:32–12:32", subj:"Reading",   cls:"reading",   icon:"📖", detail:"마지막 실전 모의고사 (60분)" },
+        { time:"13:30–14:30", subj:"Writing",   cls:"writing",   icon:"✍️", detail:"마지막 Task 1 + Task 2 실전" },
+        { time:"14:30–15:00", subj:"오답복기",  cls:"review",    icon:"📝", detail:"최종 점수 확인 + 한 달 성장 기록 ✨" },
+        { time:"저녁",         subj:"마무리",    cls:"finish",    icon:"🌙", detail:"시험 준비물 점검 — 가볍게만" },
+      ]},
+      { day:"토", date:"5/30 (토)", weekend:true, slots:[{ time:"자유", subj:"단어복습", cls:"vocab", icon:"📚", detail:"최종 어휘 총복습 — 한 달치 오답 어휘 마무리" }]},
+      { day:"일", date:"5/31 (일)", weekend:true, slots:[{ time:"자유", subj:"휴식", cls:"rest", icon:"🎉", detail:"완전 휴식 🎉 한 달 정말 수고했어요!" }]},
+    ]
+  },
+];
+
+let currentWeek = 0;
+
+// Storage helpers
+function storageKey(wi, di, si) { return `ielts_w${wi}_d${di}_s${si}`; }
+function isDone(wi, di, si) {
+  try { return localStorage.getItem(storageKey(wi,di,si)) === '1'; } catch(e) { return false; }
+}
+function toggleDone(wi, di, si) {
+  try {
+    const key = storageKey(wi,di,si);
+    localStorage.setItem(key, localStorage.getItem(key)==='1' ? '0' : '1');
+  } catch(e) {}
+}
+
+function countAll() {
+  let total = 0, done = 0;
+  WEEKS.forEach((w,wi) => w.days.forEach((d,di) => d.slots.forEach((_,si) => {
+    total++; if(isDone(wi,di,si)) done++;
+  })));
+  return {total, done};
+}
+
+function updateProgress() {
+  const {total, done} = countAll();
+  const pct = total ? Math.round(done/total*100) : 0;
+  document.getElementById('progressBar').style.width = pct + '%';
+  document.getElementById('progressLabel').textContent = `완료 ${done} / ${total} (${pct}%)`;
+}
+
+function renderTabs() {
+  const el = document.getElementById('tabs');
+  el.innerHTML = WEEKS.map((w,i) => `
+    <div class="tab ${i===currentWeek?'active':''}" 
+         style="${i===currentWeek?`background:${w.color};border-color:${w.color}`:''}"
+         onclick="selectWeek(${i})">${w.label}</div>
+  `).join('');
+}
+
+function renderWeek() {
+  const w = WEEKS[currentWeek];
+  const wh = document.getElementById('weekHeader');
+  wh.style.background = w.color + '18';
+  wh.style.border = `1px solid ${w.color}40`;
+  wh.innerHTML = `
+    <div class="week-header-label" style="color:${w.color}">${w.label} · ${w.dates}</div>
+    <div class="week-header-theme">${w.theme}</div>
+  `;
+
+  const el = document.getElementById('days');
+  el.innerHTML = w.days.map((d, di) => `
+    <div class="day-card ${d.weekend?'weekend':''}">
+      <div class="day-head" style="background:${d.weekend?'#EEEEEA':w.color+'12'}; border-color:${d.weekend?'#E0E0D0':w.color+'30'}">
+        <div class="day-dot" style="background:${d.weekend?'#B8B8A8':w.color}">${d.day}</div>
+        <div class="day-info">
+          <div class="day-date">${d.date}</div>
+          ${d.note ? `<div class="day-note" style="color:${w.color}">${d.note}</div>` : ''}
+        </div>
+      </div>
+      <div class="slots">
+        ${d.slots.map((s,si) => {
+          const done = isDone(currentWeek, di, si);
+          return `
+          <div class="slot s-${s.cls} ${done?'done':''}" onclick="toggleSlot(${di},${si},this)">
+            <div class="slot-icon">${s.icon}</div>
+            <div class="slot-content">
+              <div class="slot-meta">
+                <span class="slot-time">${s.time}</span>
+                <span class="slot-subject t-${s.cls}">${s.subj}</span>
+              </div>
+              <div class="slot-detail">${s.detail}</div>
+            </div>
+            <div class="slot-check">${done?'✓':''}</div>
+          </div>`;
+        }).join('')}
+      </div>
+    </div>
+  `).join('');
+}
+
+function toggleSlot(di, si, el) {
+  toggleDone(currentWeek, di, si);
+  const done = isDone(currentWeek, di, si);
+  el.classList.toggle('done', done);
+  el.querySelector('.slot-check').textContent = done ? '✓' : '';
+  updateProgress();
+}
+
+function selectWeek(i) {
+  currentWeek = i;
+  renderTabs();
+  renderWeek();
+}
+
+function toggleInfo() {
+  const box = document.getElementById('infoBox');
+  const btn = document.querySelector('.info-toggle');
+  box.classList.toggle('open');
+  btn.textContent = box.classList.contains('open') ? '▲ 시험 시간 닫기' : '▼ 컴퓨터 기반 시험 시간 확인';
+}
+
+function confirmReset() {
+  if(confirm(`${WEEKS[currentWeek].label} 체크를 모두 초기화할까요?`)) {
+    const w = WEEKS[currentWeek];
+    w.days.forEach((d,di) => d.slots.forEach((_,si) => {
+      try { localStorage.setItem(storageKey(currentWeek,di,si),'0'); } catch(e){}
+    }));
+    renderWeek();
+    updateProgress();
+  }
+}
+
+// Init
+renderTabs();
+renderWeek();
+updateProgress();
+</script>
+</body>
+</html>
