@@ -8,723 +8,790 @@
 <meta name="apple-mobile-web-app-title" content="IELTS 플랜">
 <title>IELTS 5주 플랜</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;600&family=DM+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;600&family=DM+Mono:wght@400;500&display=swap');
+:root {
+  --bg:#F9F8F4; --surface:#FFFFFF; --border:#E8E4DC; --text:#1E1C18; --muted:#8A8478;
+  --w1:#6B8F72; --w3:#B8864E; --w4:#7B6E9E; --w5:#B86868;
+  --listen-bg:#EAF3F6; --listen-b:#9ECEDD; --listen-t:#2B6E84;
+  --read-bg:#EDF5E8;   --read-b:#9DC99D;   --read-t:#2E6B2E;
+  --write-bg:#FDF3E8;  --write-b:#DDB96E;  --write-t:#7A4E18;
+  --speak-bg:#F3EAF7;  --speak-b:#C09DD8;  --speak-t:#5A2880;
+  --review-bg:#FFF0EE; --review-b:#EAADAD; --review-t:#8C2E2E;
+  --vocab-bg:#EDF5ED;  --vocab-b:#A4C8A4;  --vocab-t:#2E562E;
+  --rest-bg:#F5F2EC;   --rest-b:#C8BEA8;   --rest-t:#5A5040;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:'Noto Serif KR',Georgia,serif;background:var(--bg);color:var(--text);min-height:100vh;padding-bottom:48px}
 
-  :root {
-    --bg: #F9F8F4;
-    --surface: #FFFFFF;
-    --border: #E8E4DC;
-    --text: #1E1C18;
-    --muted: #8A8478;
-    --w1: #6B8F72;
-    --w2: #6B8F72;
-    --w3: #B8864E;
-    --w4: #7B6E9E;
-    --w5: #B86868;
-    --listen: #EAF3F6;
-    --listen-b: #9ECEDD;
-    --listen-t: #2B6E84;
-    --read: #EDF5E8;
-    --read-b: #9DC99D;
-    --read-t: #2E6B2E;
-    --write: #FDF3E8;
-    --write-b: #DDB96E;
-    --write-t: #7A4E18;
-    --speak: #F3EAF7;
-    --speak-b: #C09DD8;
-    --speak-t: #5A2880;
-    --review: #FFF0EE;
-    --review-b: #EAADAD;
-    --review-t: #8C2E2E;
-    --vocab: #EDF5ED;
-    --vocab-b: #A4C8A4;
-    --vocab-t: #2E562E;
-    --rest: #F5F2EC;
-    --rest-b: #C8BEA8;
-    --rest-t: #5A5040;
-    --finish: #F3EEF7;
-    --finish-b: #C0B0D4;
-    --finish-t: #4A3060;
-    --check-size: 22px;
-  }
+/* ── Main nav ── */
+.main-nav{display:flex;gap:0;margin:0 16px 18px;background:var(--border);border-radius:12px;padding:3px}
+.mnb{flex:1;padding:9px 0;border:none;border-radius:10px;font-family:'DM Mono',monospace;font-size:11px;cursor:pointer;background:transparent;color:var(--muted);transition:all .2s}
+.mnb.active{background:var(--surface);color:var(--text);box-shadow:0 1px 4px rgba(0,0,0,.08);font-weight:600}
 
-  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+/* ── Header ── */
+.hdr{text-align:center;padding:26px 20px 16px}
+.hdr-label{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.2em;color:var(--muted);text-transform:uppercase;margin-bottom:6px}
+.hdr h1{font-size:22px;font-weight:300;color:var(--text);margin-bottom:5px}
+.hdr-sub{font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);line-height:1.6}
 
-  body {
-    font-family: 'Noto Serif KR', Georgia, serif;
-    background: var(--bg);
-    color: var(--text);
-    min-height: 100vh;
-    padding-bottom: 40px;
-  }
+/* ── Progress ── */
+.prog-label{text-align:center;font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);margin-bottom:5px}
+.prog-wrap{margin:0 20px 18px;background:var(--border);border-radius:10px;height:5px;overflow:hidden}
+.prog-bar{height:100%;background:linear-gradient(90deg,var(--w1),var(--w5));border-radius:10px;transition:width .4s}
 
-  /* Header */
-  .header {
-    text-align: center;
-    padding: 28px 20px 20px;
-  }
-  .header-label {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.2em;
-    color: var(--muted);
-    text-transform: uppercase;
-    margin-bottom: 8px;
-  }
-  .header h1 {
-    font-size: 22px;
-    font-weight: 300;
-    letter-spacing: -0.01em;
-    color: var(--text);
-    margin-bottom: 6px;
-  }
-  .header-sub {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    color: var(--muted);
-    line-height: 1.6;
-  }
+/* ── Page sections ── */
+.page{display:none}.page.active{display:block}
 
-  /* Progress bar */
-  .progress-wrap {
-    margin: 0 20px 20px;
-    background: var(--border);
-    border-radius: 10px;
-    height: 6px;
-    overflow: hidden;
-  }
-  .progress-bar {
-    height: 100%;
-    background: linear-gradient(90deg, var(--w1), var(--w5));
-    border-radius: 10px;
-    transition: width 0.4s ease;
-  }
-  .progress-label {
-    text-align: center;
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
-    color: var(--muted);
-    margin-bottom: 6px;
-  }
+/* ── Week tabs (planner) ── */
+.wtabs{display:flex;gap:6px;padding:0 16px;margin-bottom:14px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.wtabs::-webkit-scrollbar{display:none}
+.wtab{flex-shrink:0;padding:7px 14px;border-radius:20px;font-family:'DM Mono',monospace;font-size:11px;cursor:pointer;border:2px solid var(--border);background:var(--surface);color:var(--muted);transition:all .15s;white-space:nowrap}
+.wtab.active{color:white;border-color:transparent}
 
-  /* Test time info */
-  .info-toggle {
-    display: block;
-    margin: 0 auto 16px;
-    padding: 6px 16px;
-    border: 1px solid var(--border);
-    background: var(--surface);
-    border-radius: 20px;
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
-    color: var(--muted);
-    cursor: pointer;
-  }
-  .info-box {
-    margin: 0 16px 16px;
-    background: var(--surface);
-    border-radius: 12px;
-    border: 1px solid var(--border);
-    padding: 14px 16px;
-    display: none;
-  }
-  .info-box.open { display: block; }
-  .info-row {
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    margin-bottom: 10px;
-    font-size: 13px;
-  }
-  .info-row:last-child { margin-bottom: 0; }
-  .info-icon { font-size: 16px; flex-shrink: 0; }
-  .info-subject { font-weight: 600; color: var(--text); min-width: 80px; }
-  .info-detail { color: var(--muted); font-size: 12px; line-height: 1.5; }
+/* ── Week header ── */
+.week-hdr{margin:0 16px 12px;padding:11px 16px;border-radius:12px;text-align:center}
+.week-hdr-lbl{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;margin-bottom:3px}
+.week-hdr-theme{font-size:15px;font-weight:300}
 
-  /* Week tabs */
-  .tabs {
-    display: flex;
-    gap: 6px;
-    padding: 0 16px;
-    margin-bottom: 16px;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-  }
-  .tabs::-webkit-scrollbar { display: none; }
-  .tab {
-    flex-shrink: 0;
-    padding: 7px 14px;
-    border-radius: 20px;
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
-    cursor: pointer;
-    border: 2px solid var(--border);
-    background: var(--surface);
-    color: var(--muted);
-    transition: all 0.15s;
-    white-space: nowrap;
-  }
-  .tab.active {
-    color: white;
-    border-color: transparent;
-  }
+/* ── Day cards ── */
+.days{padding:0 16px;display:flex;flex-direction:column;gap:11px}
+.day-card{background:var(--surface);border-radius:14px;border:1px solid var(--border);overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.04)}
+.day-card.weekend{background:#F8F7F3;opacity:.83}
+.day-head{display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid var(--border)}
+.day-dot{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-family:'DM Mono',monospace;font-size:12px;font-weight:500;flex-shrink:0}
+.day-date{font-family:'DM Mono',monospace;font-size:12px;color:var(--muted)}
+.day-note{font-family:'DM Mono',monospace;font-size:10px;margin-top:2px}
+.slots{padding:9px;display:flex;flex-direction:column;gap:5px}
+.slot{display:flex;align-items:flex-start;gap:9px;padding:9px 11px;border-radius:9px;border:1px solid;cursor:pointer;transition:opacity .2s;-webkit-user-select:none;user-select:none}
+.slot.done{opacity:.4}.slot.done .slot-detail{text-decoration:line-through}
+.slot-icon{font-size:16px;flex-shrink:0;margin-top:1px}
+.slot-content{flex:1;min-width:0}
+.slot-meta{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:3px}
+.slot-time{font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);background:rgba(255,255,255,.8);padding:1px 5px;border-radius:4px;border:1px solid rgba(0,0,0,.08);flex-shrink:0}
+.slot-subj{font-family:'DM Mono',monospace;font-size:11px;font-weight:500}
+.slot-detail{font-size:13px;line-height:1.5;color:#444}
+.slot-chk{flex-shrink:0;width:22px;height:22px;border-radius:50%;border:2px solid rgba(0,0,0,.13);background:rgba(255,255,255,.7);display:flex;align-items:center;justify-content:center;margin-top:1px;transition:all .2s;font-size:11px}
+.slot.done .slot-chk{background:rgba(0,0,0,.14);border-color:transparent}
 
-  /* Week header */
-  .week-header {
-    margin: 0 16px 14px;
-    padding: 12px 16px;
-    border-radius: 12px;
-    text-align: center;
-  }
-  .week-header-label {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    margin-bottom: 4px;
-  }
-  .week-header-theme {
-    font-size: 15px;
-    font-weight: 300;
-  }
+/* slot colours */
+.sl{background:var(--listen-bg);border-color:var(--listen-b)}.tl{color:var(--listen-t)}
+.sr{background:var(--read-bg);border-color:var(--read-b)}.tr{color:var(--read-t)}
+.sw{background:var(--write-bg);border-color:var(--write-b)}.tw{color:var(--write-t)}
+.ss{background:var(--speak-bg);border-color:var(--speak-b)}.ts{color:var(--speak-t)}
+.sv{background:var(--review-bg);border-color:var(--review-b)}.tv{color:var(--review-t)}
+.sk{background:var(--vocab-bg);border-color:var(--vocab-b)}.tk{color:var(--vocab-t)}
+.se{background:var(--rest-bg);border-color:var(--rest-b)}.te{color:var(--rest-t)}
 
-  /* Day cards */
-  .days { padding: 0 16px; display: flex; flex-direction: column; gap: 12px; }
+/* reset btn */
+.reset-btn{display:block;margin:12px auto 0;padding:7px 18px;background:none;border:1px solid var(--border);border-radius:20px;font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);cursor:pointer}
+.footer{text-align:center;margin-top:20px;font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);padding:0 20px}
 
-  .day-card {
-    background: var(--surface);
-    border-radius: 14px;
-    border: 1px solid var(--border);
-    overflow: hidden;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.04);
-  }
-  .day-card.weekend {
-    background: #F8F7F3;
-    opacity: 0.85;
-  }
+/* ── Guide shared ── */
+.guide-wrap{padding:0 16px}
+.gnav{display:flex;gap:6px;margin-bottom:14px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.gnav::-webkit-scrollbar{display:none}
+.gnb{flex-shrink:0;padding:6px 14px;border-radius:20px;font-family:'DM Mono',monospace;font-size:11px;cursor:pointer;border:2px solid var(--border);background:var(--surface);color:var(--muted);transition:all .15s}
+.gnb.active{background:#2E2E24;border-color:#2E2E24;color:white}
+.gpage{display:none}.gpage.active{display:block}
 
-  .day-head {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 10px 14px;
-    border-bottom: 1px solid var(--border);
-  }
-  .day-dot {
-    width: 32px; height: 32px;
-    border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    color: white;
-    font-family: 'DM Mono', monospace;
-    font-size: 12px;
-    font-weight: 500;
-    flex-shrink: 0;
-  }
-  .day-info { flex: 1; }
-  .day-date {
-    font-family: 'DM Mono', monospace;
-    font-size: 12px;
-    color: var(--muted);
-  }
-  .day-note {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    margin-top: 2px;
-  }
+.gcard{background:var(--surface);border-radius:14px;border:1px solid var(--border);margin-bottom:10px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.04)}
+.gcard-head{padding:12px 14px;display:flex;align-items:center;gap:10px;cursor:pointer;-webkit-user-select:none;user-select:none}
+.gcard-ico{font-size:20px;flex-shrink:0}
+.gcard-title{font-size:14px;font-weight:600;flex:1;color:var(--text)}
+.gcard-sub{font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);margin-top:2px}
+.gcard-arr{font-size:11px;color:var(--muted);transition:transform .2s}
+.gcard.open .gcard-arr{transform:rotate(180deg)}
+.gcard-body{display:none;padding:0 14px 14px;border-top:1px solid var(--border)}
+.gcard.open .gcard-body{display:block}
 
-  /* Slot items */
-  .slots { padding: 10px; display: flex; flex-direction: column; gap: 6px; }
+.g-step{display:flex;gap:9px;margin-bottom:9px;align-items:flex-start}
+.g-num{width:22px;height:22px;border-radius:50%;background:#2E2E24;color:white;font-family:'DM Mono',monospace;font-size:11px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+.g-content{font-size:13px;line-height:1.6;color:#333}
+.g-title{font-weight:600;color:var(--text);margin-bottom:2px}
 
-  .slot {
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    padding: 10px 12px;
-    border-radius: 10px;
-    border: 1px solid;
-    cursor: pointer;
-    transition: opacity 0.2s;
-    -webkit-user-select: none;
-    user-select: none;
-  }
-  .slot.done { opacity: 0.45; }
-  .slot.done .slot-detail { text-decoration: line-through; }
+.g-box{background:#F7F5F0;border-radius:8px;border:1px solid var(--border);padding:10px 12px;margin-bottom:8px}
+.g-box-lbl{font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);margin-bottom:5px;text-transform:uppercase;letter-spacing:.1em}
+.g-box-txt{font-size:13px;line-height:1.7;color:#333}
+.g-box-txt em{font-style:normal;background:var(--write-bg);border-radius:3px;padding:0 3px;color:var(--write-t);font-family:'DM Mono',monospace;font-size:11px}
 
-  .slot-icon { font-size: 17px; flex-shrink: 0; margin-top: 1px; }
+.g-tmpl{background:#F0F4FA;border-radius:8px;border:1px solid #C0CCEA;padding:12px 14px;margin:8px 0;font-size:13px;line-height:1.8;color:#2A3A5A}
+.g-tmpl .br{color:#7A9AD4;font-style:italic}
 
-  .slot-content { flex: 1; min-width: 0; }
+.g-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin:8px 0}
+.g-cell{background:#F7F5F0;border-radius:8px;border:1px solid var(--border);padding:8px 10px}
+.g-cell-name{font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);margin-bottom:3px}
+.g-cell-desc{font-size:12px;line-height:1.5;color:#444}
 
-  .slot-meta {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    flex-wrap: wrap;
-    margin-bottom: 4px;
-  }
-  .slot-time {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    color: var(--muted);
-    background: rgba(255,255,255,0.8);
-    padding: 1px 6px;
-    border-radius: 4px;
-    border: 1px solid rgba(0,0,0,0.08);
-    flex-shrink: 0;
-  }
-  .slot-subject {
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
-    font-weight: 500;
-    flex-shrink: 0;
-  }
+.g-row{display:flex;align-items:flex-start;gap:8px;padding:6px 0;border-bottom:1px solid var(--border);font-size:13px}
+.g-row:last-child{border-bottom:none}
+.g-row-bad{font-family:'DM Mono',monospace;font-size:11px;color:#B86868;width:110px;flex-shrink:0}
 
-  .slot-detail {
-    font-size: 13px;
-    line-height: 1.5;
-    color: #444;
-  }
-
-  /* Checkbox */
-  .slot-check {
-    flex-shrink: 0;
-    width: var(--check-size);
-    height: var(--check-size);
-    border-radius: 50%;
-    border: 2px solid rgba(0,0,0,0.15);
-    background: rgba(255,255,255,0.7);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 2px;
-    transition: all 0.2s;
-    font-size: 12px;
-  }
-  .slot.done .slot-check {
-    background: rgba(0,0,0,0.15);
-    border-color: transparent;
-  }
-
-  /* Subject colors */
-  .s-listening  { background: var(--listen);  border-color: var(--listen-b);  }
-  .s-reading    { background: var(--read);    border-color: var(--read-b);    }
-  .s-writing    { background: var(--write);   border-color: var(--write-b);   }
-  .s-speaking   { background: var(--speak);   border-color: var(--speak-b);   }
-  .s-review     { background: var(--review);  border-color: var(--review-b);  }
-  .s-vocab      { background: var(--vocab);   border-color: var(--vocab-b);   }
-  .s-rest       { background: var(--rest);    border-color: var(--rest-b);    }
-  .s-finish     { background: var(--finish);  border-color: var(--finish-b);  }
-  .s-mock       { background: #FEF0F0;        border-color: #E8AAAA;          }
-
-  .t-listening  { color: var(--listen-t);  }
-  .t-reading    { color: var(--read-t);    }
-  .t-writing    { color: var(--write-t);   }
-  .t-speaking   { color: var(--speak-t);   }
-  .t-review     { color: var(--review-t);  }
-  .t-vocab      { color: var(--vocab-t);   }
-  .t-rest       { color: var(--rest-t);    }
-  .t-finish     { color: var(--finish-t);  }
-  .t-mock       { color: #8C2222;          }
-
-  /* Legend */
-  .legend {
-    margin: 12px 16px 0;
-    background: var(--surface);
-    border-radius: 12px;
-    border: 1px solid var(--border);
-    padding: 12px 14px;
-  }
-  .legend-title {
-    font-family: 'DM Mono', monospace;
-    font-size: 9px;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 8px;
-  }
-  .legend-items {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-  }
-  .legend-chip {
-    padding: 3px 10px;
-    border-radius: 20px;
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    border: 1px solid;
-  }
-
-  /* Footer */
-  .footer {
-    text-align: center;
-    margin-top: 24px;
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    color: var(--muted);
-    padding: 0 20px;
-  }
-  
-  /* Reset button */
-  .reset-btn {
-    display: block;
-    margin: 16px auto 0;
-    padding: 8px 18px;
-    background: none;
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    color: var(--muted);
-    cursor: pointer;
-  }
+.g-tip{display:inline-block;padding:3px 10px;border-radius:20px;font-family:'DM Mono',monospace;font-size:11px;background:#EEF5EE;color:#2A6A2A;border:1px solid #A8D4A8;margin-top:6px}
+.g-warn{display:inline-block;padding:3px 10px;border-radius:20px;font-family:'DM Mono',monospace;font-size:11px;background:#FFF4E8;color:#8A4A10;border:1px solid #E8B878;margin-top:6px}
+.g-sec{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:12px 0 6px}
 </style>
 </head>
 <body>
 
-<div class="header">
-  <div class="header-label">IELTS Academic · 컴퓨터 기반 · 2026. 5</div>
+<div class="hdr">
+  <div class="hdr-label">IELTS Academic · 컴퓨터 기반 · 2026. 5</div>
   <h1>5주 학습 플랜</h1>
-  <div class="header-sub">주 5일(월~금) · 11:00 시작 · 목표 Band 6.0</div>
+  <div class="hdr-sub">주 5일(월~금) · 11:00 시작 · 목표 Band 6.0</div>
 </div>
 
-<div class="progress-label" id="progressLabel">완료 0 / 0</div>
-<div class="progress-wrap"><div class="progress-bar" id="progressBar" style="width:0%"></div></div>
-
-<button class="info-toggle" onclick="toggleInfo()">▼ 컴퓨터 기반 시험 시간 확인</button>
-<div class="info-box" id="infoBox">
-  <div class="info-row"><span class="info-icon">🎧</span><div><div class="info-subject">Listening</div><div class="info-detail">약 32분 (30분 청취 + 2분 확인) — 답안이전 없음, 듣는 즉시 입력</div></div></div>
-  <div class="info-row"><span class="info-icon">📖</span><div><div class="info-subject">Reading</div><div class="info-detail">60분 — 3개 지문, 40문제</div></div></div>
-  <div class="info-row"><span class="info-icon">✍️</span><div><div class="info-subject">Writing</div><div class="info-detail">60분 — Task1 20분 + Task2 40분 (Task2 배점 높음)</div></div></div>
-  <div class="info-row"><span class="info-icon">🎤</span><div><div class="info-subject">Speaking</div><div class="info-detail">11~14분 — Part1·2·3, 별도 일정 or 당일</div></div></div>
+<div class="main-nav">
+  <button class="mnb active" onclick="switchMain('plan',this)">📅 플랜</button>
+  <button class="mnb" onclick="switchMain('writing',this)">✍️ Writing</button>
+  <button class="mnb" onclick="switchMain('reading',this)">📖 Reading</button>
+  <button class="mnb" onclick="switchMain('speaking',this)">🎤 Speaking</button>
 </div>
 
-<div class="tabs" id="tabs"></div>
-<div class="week-header" id="weekHeader"></div>
-<div class="days" id="days"></div>
-<div class="legend">
-  <div class="legend-title">색상 안내</div>
-  <div class="legend-items">
-    <span class="legend-chip s-listening t-listening">Listening</span>
-    <span class="legend-chip s-reading t-reading">Reading</span>
-    <span class="legend-chip s-writing t-writing">Writing</span>
-    <span class="legend-chip s-speaking t-speaking">Speaking</span>
-    <span class="legend-chip s-review t-review">오답복기</span>
-    <span class="legend-chip s-mock t-mock">풀 모의고사</span>
-    <span class="legend-chip s-vocab t-vocab">단어복습</span>
-    <span class="legend-chip s-rest t-rest">휴식</span>
+<!-- ═══ PLAN PAGE ═══ -->
+<div id="page-plan" class="page active">
+  <div class="prog-label" id="progLabel">완료 0 / 0</div>
+  <div class="prog-wrap"><div class="prog-bar" id="progBar" style="width:0%"></div></div>
+  <div class="wtabs" id="wtabs"></div>
+  <div class="week-hdr" id="weekHdr"></div>
+  <div class="days" id="days"></div>
+  <button class="reset-btn" onclick="confirmReset()">이 주차 체크 초기화</button>
+  <div class="footer">항목을 탭하면 완료 체크 · 껐다 켜도 저장돼요</div>
+</div>
+
+<!-- ═══ WRITING GUIDE ═══ -->
+<div id="page-writing" class="page">
+<div class="guide-wrap">
+  <div class="gnav">
+    <button class="gnb active" onclick="switchG('wg','wg-overview',this)">개요</button>
+    <button class="gnb" onclick="switchG('wg','wg-task1',this)">Task 1</button>
+    <button class="gnb" onclick="switchG('wg','wg-task2',this)">Task 2</button>
+    <button class="gnb" onclick="switchG('wg','wg-phrases',this)">표현 모음</button>
+  </div>
+
+  <div id="wg-overview" class="gpage active">
+    <div class="gcard open">
+      <div class="gcard-head" onclick="toggleG(this)"><div class="gcard-ico">📊</div><div><div class="gcard-title">채점 기준 4가지</div><div class="gcard-sub">각 25% · 모두 동일 비중</div></div><div class="gcard-arr">▼</div></div>
+      <div class="gcard-body">
+        <div class="g-grid">
+          <div class="g-cell"><div class="g-cell-name">Task Achievement</div><div class="g-cell-desc">문제 요구사항을 다 충족했는가</div></div>
+          <div class="g-cell"><div class="g-cell-name">Coherence & Cohesion</div><div class="g-cell-desc">문단 흐름·연결어 자연스러운가</div></div>
+          <div class="g-cell"><div class="g-cell-name">Lexical Resource</div><div class="g-cell-desc">다양한 어휘 사용, 반복 피하기</div></div>
+          <div class="g-cell"><div class="g-cell-name">Grammatical Range</div><div class="g-cell-desc">다양한 문장 구조 사용</div></div>
+        </div>
+        <div class="g-tip">💡 Task 2가 Task 1보다 2배 배점 — 시간 배분이 핵심</div>
+      </div>
+    </div>
+    <div class="gcard">
+      <div class="gcard-head" onclick="toggleG(this)"><div class="gcard-ico">⏱</div><div><div class="gcard-title">시간 배분 전략</div><div class="gcard-sub">총 60분 엄수</div></div><div class="gcard-arr">▼</div></div>
+      <div class="gcard-body">
+        <div class="g-step"><div class="g-num">1</div><div class="g-content"><div class="g-title">Task 1 — 20분</div>문제 읽기 2분 → 작성 15분 → 검토 3분. 150단어 이상 필수.</div></div>
+        <div class="g-step"><div class="g-num">2</div><div class="g-content"><div class="g-title">Task 2 — 40분</div>브레인스토밍 5분 → 아웃라인 3분 → 작성 27분 → 검토 5분. 250단어 이상 필수.</div></div>
+        <div class="g-step"><div class="g-num">3</div><div class="g-content"><div class="g-title">단어 수 감각</div>화면 한 줄 ≈ 10단어. 매번 세지 말고 줄 수로 감각을 익히기.</div></div>
+      </div>
+    </div>
+    <div class="gcard">
+      <div class="gcard-head" onclick="toggleG(this)"><div class="gcard-ico">🎯</div><div><div class="gcard-title">Band 6.0 핵심 원칙</div><div class="gcard-sub">이것만 지켜도 6.0</div></div><div class="gcard-arr">▼</div></div>
+      <div class="gcard-body">
+        <div class="g-step"><div class="g-num">✓</div><div class="g-content">같은 단어 3번 이상 반복 금지 — 동의어로 교체</div></div>
+        <div class="g-step"><div class="g-num">✓</div><div class="g-content">단순문(S+V+O)만 쓰지 말고 복합문·관계절 섞기</div></div>
+        <div class="g-step"><div class="g-num">✓</div><div class="g-content">문단마다 Topic Sentence → 근거/예시 → 마무리 구조</div></div>
+        <div class="g-step"><div class="g-num">✓</div><div class="g-content">구어체 금지: "a lot of" → "a significant number of"</div></div>
+        <div class="g-step"><div class="g-num">✓</div><div class="g-content">단어 수 반드시 충족: Task1 150+, Task2 250+</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="wg-task1" class="gpage">
+    <div class="gcard open">
+      <div class="gcard-head" onclick="toggleG(this)"><div class="gcard-ico">📈</div><div><div class="gcard-title">Task 1 기본 구조</div><div class="gcard-sub">150단어 이상 · 20분</div></div><div class="gcard-arr">▼</div></div>
+      <div class="gcard-body">
+        <div class="g-tmpl">
+          <div class="br">[단락 1: Introduction — 1~2문장]</div>
+          그래프/표를 paraphrase해서 소개. 문제 문장 그대로 복사 금지!<br><br>
+          <div class="br">[단락 2: Overview — 2~3문장]</div>
+          가장 눈에 띄는 전체 트렌드 2가지.<br>"Overall, it is clear that..."로 시작.<br><br>
+          <div class="br">[단락 3~4: Detail — 각 3~5문장]</div>
+          구체적 수치와 함께 특징 기술. 비교·대조·변화를 수치로 뒷받침.
+        </div>
+        <div class="g-warn">⚠️ 개인 의견이나 이유 설명 금지 — 데이터만 기술</div>
+      </div>
+    </div>
+    <div class="gcard">
+      <div class="gcard-head" onclick="toggleG(this)"><div class="gcard-ico">📊</div><div><div class="gcard-title">유형별 전략</div><div class="gcard-sub">Bar / Line / Pie / Table / Process / Map</div></div><div class="gcard-arr">▼</div></div>
+      <div class="gcard-body">
+        <div class="g-sec">Bar / Line Chart</div>
+        <div class="g-step"><div class="g-num">→</div><div class="g-content">최고점·최저점·전체 트렌드를 Overview에. Detail에서 각 항목 비교 + 수치 제시.</div></div>
+        <div class="g-sec">Pie Chart</div>
+        <div class="g-step"><div class="g-num">→</div><div class="g-content">가장 큰 비중 → 가장 작은 순서로. 두 파이 차트면 변화에 집중.</div></div>
+        <div class="g-sec">Table</div>
+        <div class="g-step"><div class="g-num">→</div><div class="g-content">모든 수치를 다 쓰려 하지 말 것. 두드러진 특징 3~4개만 선별.</div></div>
+        <div class="g-sec">Process Diagram</div>
+        <div class="g-step"><div class="g-num">→</div><div class="g-content">단계 순서대로 passive voice 활용. "First... Then... Finally..."</div></div>
+        <div class="g-sec">Map</div>
+        <div class="g-step"><div class="g-num">→</div><div class="g-content">변화한 것 vs 변화 없는 것 비교. 위치 표현 필수 (north, adjacent to, opposite).</div></div>
+      </div>
+    </div>
+    <div class="gcard">
+      <div class="gcard-head" onclick="toggleG(this)"><div class="gcard-ico">✏️</div><div><div class="gcard-title">Introduction Paraphrase</div><div class="gcard-sub">첫 문장 작성법</div></div><div class="gcard-arr">▼</div></div>
+      <div class="gcard-body">
+        <div class="g-box"><div class="g-box-lbl">원문</div><div class="g-box-txt">The graph shows the number of tourists visiting Spain from 2000 to 2020.</div></div>
+        <div class="g-box"><div class="g-box-lbl">Paraphrase 예시</div><div class="g-box-txt">The line graph <em>illustrates</em> <em>the figures for</em> tourists who <em>travelled to</em> Spain <em>over a twenty-year period</em> from 2000.</div></div>
+        <div class="g-box"><div class="g-box-lbl">동의어 교체</div><div class="g-box-txt">shows → <em>illustrates / depicts / presents</em><br>number → <em>figure / proportion / quantity</em><br>increase → <em>rise / grow / climb / surge</em><br>decrease → <em>fall / drop / decline</em></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="wg-task2" class="gpage">
+    <div class="gcard open">
+      <div class="gcard-head" onclick="toggleG(this)"><div class="gcard-ico">📝</div><div><div class="gcard-title">에세이 유형 5가지</div><div class="gcard-sub">문제 유형 파악이 먼저</div></div><div class="gcard-arr">▼</div></div>
+      <div class="gcard-body">
+        <div class="g-step"><div class="g-num">1</div><div class="g-content"><div class="g-title">Opinion (Agree/Disagree)</div>"To what extent do you agree or disagree?" → 한 쪽 입장 명확히.</div></div>
+        <div class="g-step"><div class="g-num">2</div><div class="g-content"><div class="g-title">Discussion (Both Views)</div>"Discuss both views and give your opinion." → 양쪽 논의 후 내 의견.</div></div>
+        <div class="g-step"><div class="g-num">3</div><div class="g-content"><div class="g-title">Problem & Solution</div>"What are the problems? What solutions?" → 문제 1~2개, 해결책 1~2개.</div></div>
+        <div class="g-step"><div class="g-num">4</div><div class="g-content"><div class="g-title">Advantage & Disadvantage</div>"Discuss the advantages and disadvantages." → 균형있게 양쪽.</div></div>
+        <div class="g-step"><div class="g-num">5</div><div class="g-content"><div class="g-title">Double Question</div>"Why is this? Is this positive or negative?" → 두 질문 모두 필수!</div></div>
+      </div>
+    </div>
+    <div class="gcard">
+      <div class="gcard-head" onclick="toggleG(this)"><div class="gcard-ico">🏗</div><div><div class="gcard-title">Opinion Essay 템플릿</div><div class="gcard-sub">가장 자주 출제</div></div><div class="gcard-arr">▼</div></div>
+      <div class="gcard-body">
+        <div class="g-tmpl">
+          <div class="br">[Intro — 2~3문장]</div>
+          배경 1문장 + 내 입장 명확히.<br>"While some argue that..., I firmly believe that..."<br><br>
+          <div class="br">[Body 1 — 4~5문장]</div>
+          Topic sentence → 이유/근거 → 예시 → 마무리.<br><br>
+          <div class="br">[Body 2 — 4~5문장]</div>
+          두 번째 이유 → 근거 → 예시 → 마무리.<br><br>
+          <div class="br">[Conclusion — 2~3문장]</div>
+          "In conclusion, I would argue that..." + 요약.
+        </div>
+      </div>
+    </div>
+    <div class="gcard">
+      <div class="gcard-head" onclick="toggleG(this)"><div class="gcard-ico">🏗</div><div><div class="gcard-title">Discussion Essay 템플릿</div><div class="gcard-sub">Both Views + My Opinion</div></div><div class="gcard-arr">▼</div></div>
+      <div class="gcard-body">
+        <div class="g-tmpl">
+          <div class="br">[Intro — 2~3문장]</div>
+          "This essay will examine both perspectives before drawing a conclusion."<br><br>
+          <div class="br">[Body 1 — 4~5문장]</div>
+          "Those who support... argue that..."<br><br>
+          <div class="br">[Body 2 — 4~5문장]</div>
+          "On the other hand, opponents contend that..."<br><br>
+          <div class="br">[Conclusion — 2~3문장]</div>
+          "In conclusion, although both views have merit, I believe..."
+        </div>
+      </div>
+    </div>
+    <div class="gcard">
+      <div class="gcard-head" onclick="toggleG(this)"><div class="gcard-ico">🏗</div><div><div class="gcard-title">Problem & Solution 템플릿</div></div><div class="gcard-arr">▼</div></div>
+      <div class="gcard-body">
+        <div class="g-tmpl">
+          <div class="br">[Intro — 2문장]</div>
+          "This essay will outline the main problems and suggest possible solutions."<br><br>
+          <div class="br">[Body 1: Problems — 4~5문장]</div>
+          "One of the main problems is... Another significant issue is..."<br><br>
+          <div class="br">[Body 2: Solutions — 4~5문장]</div>
+          "To address this, governments could... Additionally, individuals should..."<br><br>
+          <div class="br">[Conclusion — 2문장]</div>
+          요약.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="wg-phrases" class="gpage">
+    <div class="gcard open">
+      <div class="gcard-head" onclick="toggleG(this)"><div class="gcard-ico">🔗</div><div><div class="gcard-title">연결어 모음</div><div class="gcard-sub">Coherence 점수 핵심</div></div><div class="gcard-arr">▼</div></div>
+      <div class="gcard-body">
+        <div class="g-box"><div class="g-box-lbl">추가</div><div class="g-box-txt"><em>Furthermore</em> / <em>Moreover</em> / <em>In addition</em> / <em>Additionally</em></div></div>
+        <div class="g-box"><div class="g-box-lbl">대조</div><div class="g-box-txt"><em>However</em> / <em>Nevertheless</em> / <em>On the other hand</em> / <em>In contrast</em></div></div>
+        <div class="g-box"><div class="g-box-lbl">결과</div><div class="g-box-txt"><em>Therefore</em> / <em>As a result</em> / <em>Consequently</em> / <em>Hence</em></div></div>
+        <div class="g-box"><div class="g-box-lbl">예시</div><div class="g-box-txt"><em>For instance</em> / <em>For example</em> / <em>To illustrate</em></div></div>
+        <div class="g-box"><div class="g-box-lbl">결론</div><div class="g-box-txt"><em>In conclusion</em> / <em>To summarise</em> / <em>Overall</em></div></div>
+      </div>
+    </div>
+    <div class="gcard">
+      <div class="gcard-head" onclick="toggleG(this)"><div class="gcard-ico">📈</div><div><div class="gcard-title">Task 1 변화 표현</div><div class="gcard-sub">수치 기술 필수 어휘</div></div><div class="gcard-arr">▼</div></div>
+      <div class="gcard-body">
+        <div class="g-box"><div class="g-box-lbl">증가 (동사)</div><div class="g-box-txt"><em>rose / increased / grew / climbed / surged</em></div></div>
+        <div class="g-box"><div class="g-box-lbl">감소 (동사)</div><div class="g-box-txt"><em>fell / decreased / dropped / declined / plummeted</em></div></div>
+        <div class="g-box"><div class="g-box-lbl">급격히 / 완만히</div><div class="g-box-txt"><em>sharply / dramatically / significantly</em> / <em>gradually / steadily / slightly</em></div></div>
+        <div class="g-box"><div class="g-box-lbl">최고 / 최저</div><div class="g-box-txt">reached a <em>peak</em> of... / hit a <em>low</em> of... / <em>peaked at</em>...</div></div>
+      </div>
+    </div>
+    <div class="gcard">
+      <div class="gcard-head" onclick="toggleG(this)"><div class="gcard-ico">🚫</div><div><div class="gcard-title">구어체 → 학술어 교체</div><div class="gcard-sub">Lexical Resource 감점 주의</div></div><div class="gcard-arr">▼</div></div>
+      <div class="gcard-body">
+        <div class="g-row"><span class="g-row-bad">a lot of</span><span style="font-size:13px;color:#444">→ a significant number of / a considerable amount of</span></div>
+        <div class="g-row"><span class="g-row-bad">big / small</span><span style="font-size:13px;color:#444">→ substantial / significant / minor / marginal</span></div>
+        <div class="g-row"><span class="g-row-bad">good / bad</span><span style="font-size:13px;color:#444">→ beneficial / advantageous / detrimental / harmful</span></div>
+        <div class="g-row"><span class="g-row-bad">get</span><span style="font-size:13px;color:#444">→ obtain / acquire / receive / achieve</span></div>
+        <div class="g-row"><span class="g-row-bad">show</span><span style="font-size:13px;color:#444">→ illustrate / demonstrate / indicate / reveal</span></div>
+        <div class="g-row"><span class="g-row-bad">I think</span><span style="font-size:13px;color:#444">→ I would argue / It can be argued / In my view</span></div>
+      </div>
+    </div>
   </div>
 </div>
-<button class="reset-btn" onclick="confirmReset()">이 주차 체크 초기화</button>
-<div class="footer">항목을 탭하면 완료 체크 · 껐다 켜도 저장돼요 ✍️</div>
+</div>
+
+<!-- ═══ READING GUIDE ═══ -->
+<div id="page-reading" class="page">
+<div class="guide-wrap">
+  <div class="gnav">
+    <button class="gnb active" onclick="switchG('rg','rg-overview',this)">개요</button>
+    <button class="gnb" onclick="switchG('rg','rg-types',this)">문제 유형</button>
+    <button class="gnb" onclick="switchG('rg','rg-strategy',this)">시간 전략</button>
+    <button class="gnb" onclick="switchG('rg','rg-vocab',this)">어휘 전략</button>
+  </div>
+
+  <div id="rg-overview" class="gpage active">
+    <div class="gcard open">
+      <div class="gcard-head" onclick="toggleG(this)"><div class="gcard-ico">📋</div><div><div class="gcard-title">시험 구조</div><div class="gcard-sub">60분 · 3지문 · 40문제</div></div><div class="gcard-arr">▼</div></div>
+      <div class="gcard-body">
+        <div class="g-step"><div class="g-num">1</div><div class="g-content"><div class="g-title">Passage 1</div>가장 쉬움. 약 20분 배정. 절대 시간 초과 금지.</div></div>
+        <div class="g-step"><div class="g-num">2</div><div class="g-content"><div class="g-title">Passage 2</div>중간 난이도. 약 20분.</div></div>
+        <div class="g-step"><div class="g-num">3</div><div class="g-content"><div class="g-title">Passage 3</div>가장 어려움. 약 20분. 끝까지 못 풀면 찍기도 전략.</div></div>
+        <div class="g-tip">💡 컴퓨터 기반 — 답안이전 없음. 바로바로 입력.</div>
+      </div>
+    </div>
+    <div class="gcard">
+      <div class="gcard-head" onclick="toggleG(this)"><div class="gcard-ico">🎯</div><div><div class="gcard-title">Band 6.0 목표 정확도</div><div class="gcard-sub">40문제 중 몇 개?</div></div><div class="gcard-arr">▼</div></div>
+      <div class="gcard-body">
+        <div class="g-row"><span style="font-family:DM Mono,monospace;font-size:12px;font-weight:600;width:60px;flex-shrink:0">Band 5.0</span><span style="font-size:13px;color:#444">23~26개 정답</span></div>
+        <div class="g-row"><span style="font-family:DM Mono,monospace;font-size:12px;font-weight:600;width:60px;flex-shrink:0">Band 5.5</span><span style="font-size:13px;color:#444">27~29개 정답</span></div>
+        <div class="g-row"><span style="font-family:DM Mono,monospace;font-size:12px;font-weight:600;width:60px;flex-shrink:0;color:var(--w1)">Band 6.0</span><span style="font-size:13px;color:#444">30~32개 정답 ← 목표!</span></div>
+        <div class="g-row"><span style="font-family:DM Mono,monospace;font-size:12px;font-weight:600;width:60px;flex-shrink:0">Band 6.5</span><span style="font-size:13px;color:#444">33~35개 정답</span></div>
+        <div class="g-tip">💡 모르는 문제는 반드시 찍기 — 감점 없음!</div>
+      </div>
+    </div>
+    <div class="gcard">
+      <div class="gcard-head" onclick="toggleG(this)"><div class="gcard-ico">🔑</div><div><div class="gcard-title">핵심 원칙</div><div class="gcard-sub">점수 올리는 습관</div></div><div class="gcard-arr">▼</div></div>
+      <div class="gcard-body">
+        <div class="g-step"><div class="g-num">✓</div><div class="g-content">지문 전체 읽지 말 것 — 문제 먼저 읽고 키워드 파악 후 지문에서 찾기</div></div>
+        <div class="g-step"><div class="g-num">✓</div><div class="g-content">답은 지문에 나온 순서대로 — 앞에서부터 찾아가기</div></div>
+        <div class="g-step"><div class="g-num">✓</div><div class="g-content">1문제에 3분 이상 쓰지 말 것 — 모르면 표시하고 넘어가기</div></div>
+        <div class="g-step"><div class="g-num">✓</div><div class="g-content">True/False/Not Given — "지문에 없으면" Not Given, "지문과 반대면" False</div></div>
+        <div class="g-step"><div class="g-num">✓</div><div class="g-content">철자 오류 = 오답. 지문에서 복사할 때 반드시 확인.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="rg-types" class="gpage">
+    <div class="gcard open">
+      <div class="gcard-head" onclick="toggleG(this)"><div class="gcard-ico">📌</div><div><div class="gcard-title">True / False / Not Given</div><div class="gcard-sub">가장 까다로운 유형</div></div><div class="gcard-arr">▼</div></div>
+      <div class="gcard-body">
+        <div class="g-step"><div class="g-num">T</div><div class="g-content"><div class="g-title">TRUE</div>문장이 지문 내용과 일치. 단어가 달라도 의미가 같으면 TRUE.</div></div>
+        <div class="g-step"><div class="g-num">F</div><div class="g-content"><div class="g-title">FALSE</div>문장이 지문 내용과 명백히 반대.</div></div>
+        <div class="g-step"><div class="g-num">NG</div><div class="g-content"><div class="g-title">NOT GIVEN</div>지문에 관련 내용 자체가 없음. 상식으로 판단 금지 — 지문만 근거로!</div></div>
+        <div class="g-warn">⚠️ Not Given이 제일 어려워요. "지문에 없다" = NG. 상식 X.</div>
+      </div>
+    </div>
+    <div class="gcard">
+      <div class="gcard-head" onclick="toggleG(this)"><div class="gcard-ico">🔗</div><div><div class="gcard-title">Matching Headings</div><div class="gcard-sub">단락 제목 연결</div></div><div class="gcard-arr">▼</div></div>
+      <div class="gcard-body">
+        <div class="g-step"><div class="g-num">1</div><div class="g-content">보기 헤딩 목록 먼저 읽고 핵심 키워드 메모.</div></div>
+        <div class="g-step"><div class="g-num">2</div><div class="g-content">각 단락의 첫 문장과 마지막 문장만 읽기 — 전체 읽지 말 것.</div></div>
+        <div class="g-step"><div class="g-num">3</div><div class="g-content">단락의 main idea와 헤딩의 의미가 일치하는 것 선택.</div></div>
+        <div class="g-tip">💡 쉬운 단락부터 맞추고 어려운 건 나중에.</div>
+      </div>
+    </div>
+    <div class="gcard">
+      <div class="gcard-head" onclick="toggleG(this)"><div class="gcard-ico">✏️</div><div><div class="gcard-title">Summary / Sentence Completion</div><div class="gcard-sub">빈칸 채우기</div></div><div class="gcard-arr">▼</div></div>
+      <div class="gcard-body">
+        <div class="g-step"><div class="g-num">1</div><div class="g-content">단어 수 제한 반드시 확인: "NO MORE THAN TWO WORDS"</div></div>
+        <div class="g-step"><div class="g-num">2</div><div class="g-content">답은 지문에서 그대로 복사 — 단어 변형 금지.</div></div>
+        <div class="g-step"><div class="g-num">3</div><div class="g-content">빈칸 앞뒤 품사 확인 (명사 자리인지, 형용사 자리인지).</div></div>
+      </div>
+    </div>
+    <div class="gcard">
+      <div class="gcard-head" onclick="toggleG(this)"><div class="gcard-ico">🔍</div><div><div class="gcard-title">Matching Information</div><div class="gcard-sub">단락 찾기</div></div><div class="gcard-arr">▼</div></div>
+      <div class="gcard-body">
+        <div class="g-step"><div class="g-num">1</div><div class="g-content">문제의 키워드를 지문에서 Scan (빠르게 훑기).</div></div>
+        <div class="g-step"><div class="g-num">2</div><div class="g-content">같은 단락을 여러 문제의 답으로 쓸 수 있음.</div></div>
+        <div class="g-step"><div class="g-num">3</div><div class="g-content">순서대로 나오지 않을 수 있으니 전체를 훑어야 함.</div></div>
+      </div>
+    </div>
+    <div class="gcard">
+      <div class="gcard-head" onclick="toggleG(this)"><div class="gcard-ico">❓</div><div><div class="gcard-title">Multiple Choice</div><div class="gcard-sub">객관식</div></div><div class="gcard-arr">▼</div></div>
+      <div class="gcard-body">
+        <div class="g-step"><div class="g-num">1</div><div class="g-content">질문의 핵심 키워드를 지문에서 locate.</div></div>
+        <div class="g-step"><div class="g-num">2</div><div class="g-content">함정 선택지 주의 — 지문에 나온 단어를 쓰지만 의미가 다른 경우.</div></div>
+        <div class="g-step"><div class="g-num">3</div><div class="g-content">나머지 선택지를 하나씩 지문과 대조해서 소거.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="rg-strategy" class="gpage">
+    <div class="gcard open">
+      <div class="gcard-head" onclick="toggleG(this)"><div class="gcard-ico">⚡</div><div><div class="gcard-title">Skimming vs Scanning</div><div class="gcard-sub">속독 두 가지 기술</div></div><div class="gcard-arr">▼</div></div>
+      <div class="gcard-body">
+        <div class="g-step"><div class="g-num">S</div><div class="g-content"><div class="g-title">Skimming — 전체 파악</div>첫 문장만 읽으며 지문 구조 파악. 30초 안에. Matching Headings에 유용.</div></div>
+        <div class="g-step"><div class="g-num">S</div><div class="g-content"><div class="g-title">Scanning — 특정 정보 찾기</div>키워드(숫자, 고유명사, 대문자)를 눈으로 빠르게 훑기. T/F/NG, 빈칸 채우기에 유용.</div></div>
+        <div class="g-tip">💡 두 기술을 조합해서 쓰는 게 핵심 — 처음엔 Skim, 답 찾을 땐 Scan</div>
+      </div>
+    </div>
+    <div class="gcard">
+      <div class="gcard-head" onclick="toggleG(this)"><div class="gcard-ico">⏱</div><div><div class="gcard-title">60분 시간 배분 전략</div></div><div class="gcard-arr">▼</div></div>
+      <div class="gcard-body">
+        <div class="g-step"><div class="g-num">1</div><div class="g-content"><div class="g-title">00:00 – 20:00 · Passage 1</div>쉬운 지문에서 점수 확보. 13~14문제 목표. 절대 20분 넘기지 말기.</div></div>
+        <div class="g-step"><div class="g-num">2</div><div class="g-content"><div class="g-title">20:00 – 40:00 · Passage 2</div>중간 난이도. 13~14문제.</div></div>
+        <div class="g-step"><div class="g-num">3</div><div class="g-content"><div class="g-title">40:00 – 58:00 · Passage 3</div>어려운 지문. 못 푼 문제는 나중에.</div></div>
+        <div class="g-step"><div class="g-num">4</div><div class="g-content"><div class="g-title">58:00 – 60:00 · 마무리</div>빈칸 모두 채우기. 모르는 것도 찍기 (감점 없음).</div></div>
+      </div>
+    </div>
+    <div class="gcard">
+      <div class="gcard-head" onclick="toggleG(this)"><div class="gcard-ico">🔑</div><div><div class="gcard-title">Keyword Paraphrase 훈련</div><div class="gcard-sub">문제와 지문의 다른 표현 찾기</div></div><div class="gcard-arr">▼</div></div>
+      <div class="gcard-body">
+        <div class="g-box"><div class="g-box-lbl">문제</div><div class="g-box-txt">The number of people using public transport <em>increased</em>.</div></div>
+        <div class="g-box"><div class="g-box-lbl">지문 (paraphrase)</div><div class="g-box-txt">There was a <em>significant rise</em> in the use of buses and trains.</div></div>
+        <div class="g-tip">💡 같은 의미를 다른 단어로 표현한 것을 빠르게 연결하는 게 핵심 실력</div>
+      </div>
+    </div>
+  </div>
+
+  <div id="rg-vocab" class="gpage">
+    <div class="gcard open">
+      <div class="gcard-head" onclick="toggleG(this)"><div class="gcard-ico">📚</div><div><div class="gcard-title">Academic 고빈도 어휘</div><div class="gcard-sub">IELTS Reading 필수 단어</div></div><div class="gcard-arr">▼</div></div>
+      <div class="gcard-body">
+        <div class="g-box"><div class="g-box-lbl">변화/추세</div><div class="g-box-txt"><em>fluctuate / trend / shift / transition / transformation / evolution</em></div></div>
+        <div class="g-box"><div class="g-box-lbl">증가/감소</div><div class="g-box-txt"><em>surge / escalate / soar / plummet / diminish / dwindle</em></div></div>
+        <div class="g-box"><div class="g-box-lbl">주장/근거</div><div class="g-box-txt"><em>assert / claim / contend / argue / maintain / propose</em></div></div>
+        <div class="g-box"><div class="g-box-lbl">영향/결과</div><div class="g-box-txt"><em>impact / consequence / implication / outcome / ramification</em></div></div>
+        <div class="g-box"><div class="g-box-lbl">연구/조사</div><div class="g-box-txt"><em>investigate / examine / analyse / evaluate / assess / review</em></div></div>
+      </div>
+    </div>
+    <div class="gcard">
+      <div class="gcard-head" onclick="toggleG(this)"><div class="gcard-ico">🔄</div><div><div class="gcard-title">자주 나오는 Paraphrase 쌍</div><div class="gcard-sub">문제 ↔ 지문 표현 연결</div></div><div class="gcard-arr">▼</div></div>
+      <div class="gcard-body">
+        <div class="g-row"><span class="g-row-bad">children</span><span style="font-size:13px;color:#444">↔ young people / minors / the younger generation</span></div>
+        <div class="g-row"><span class="g-row-bad">money</span><span style="font-size:13px;color:#444">↔ funds / finances / resources / budget</span></div>
+        <div class="g-row"><span class="g-row-bad">important</span><span style="font-size:13px;color:#444">↔ significant / crucial / vital / essential</span></div>
+        <div class="g-row"><span class="g-row-bad">use</span><span style="font-size:13px;color:#444">↔ utilise / employ / apply / implement</span></div>
+        <div class="g-row"><span class="g-row-bad">problem</span><span style="font-size:13px;color:#444">↔ issue / challenge / concern / obstacle</span></div>
+        <div class="g-row"><span class="g-row-bad">find out</span><span style="font-size:13px;color:#444">↔ discover / reveal / uncover / identify</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ═══ SPEAKING GUIDE ═══ -->
+<div id="page-speaking" class="page">
+<div class="guide-wrap">
+  <div class="gnav">
+    <button class="gnb active" onclick="switchG('sg','sg-overview',this)">개요</button>
+    <button class="gnb" onclick="switchG('sg','sg-part1',this)">Part 1</button>
+    <button class="gnb" onclick="switchG('sg','sg-part2',this)">Part 2</button>
+    <button class="gnb" onclick="switchG('sg','sg-part3',this)">Part 3</button>
+    <button class="gnb" onclick="switchG('sg','sg-phrases',this)">표현 모음</button>
+  </div>
+
+  <div id="sg-overview" class="gpage active">
+    <div class="gcard open">
+      <div class="gcard-head" onclick="toggleG(this)"><div class="gcard-ico">🗺</div><div><div class="gcard-title">시험 구조</div><div class="gcard-sub">총 11~14분</div></div><div class="gcard-arr">▼</div></div>
+      <div class="gcard-body">
+        <div class="g-step"><div class="g-num">1</div><div class="g-content"><div class="g-title">Part 1 · 4~5분</div>일상 주제 짧은 Q&A. 긴장 푸는 구간. 2~3문장씩 자연스럽게.</div></div>
+        <div class="g-step"><div class="g-num">2</div><div class="g-content"><div class="g-title">Part 2 · 3~4분</div>카드 주제 받고 1분 준비 → 2분 스피치. 준비가 제일 빛나는 구간.</div></div>
+        <div class="g-step"><div class="g-num">3</div><div class="g-content"><div class="g-title">Part 3 · 4~5분</div>Part 2 주제 심화 토론. 추상적·사회적 질문. 의견+근거 필수.</div></div>
+      </div>
+    </div>
+    <div class="gcard">
+      <div class="gcard-head" onclick="toggleG(this)"><div class="gcard-ico">📊</div><div><div class="gcard-title">채점 기준 4가지</div><div class="gcard-sub">각 25%</div></div><div class="gcard-arr">▼</div></div>
+      <div class="gcard-body">
+        <div class="g-grid">
+          <div class="g-cell"><div class="g-cell-name">Fluency & Coherence</div><div class="g-cell-desc">자연스러운 흐름, 너무 잦은 멈춤 금지</div></div>
+          <div class="g-cell"><div class="g-cell-name">Lexical Resource</div><div class="g-cell-desc">다양한 어휘, 반복 피하기</div></div>
+          <div class="g-cell"><div class="g-cell-name">Grammatical Range</div><div class="g-cell-desc">다양한 문장 구조</div></div>
+          <div class="g-cell"><div class="g-cell-name">Pronunciation</div><div class="g-cell-desc">이해하기 쉬우면 OK. 원어민 억양 불필요.</div></div>
+        </div>
+        <div class="g-tip">💡 완벽한 발음보다 자연스러운 흐름이 훨씬 중요!</div>
+      </div>
+    </div>
+    <div class="gcard">
+      <div class="gcard-head" onclick="toggleG(this)"><div class="gcard-ico">🎯</div><div><div class="gcard-title">Band 6.0 핵심 원칙</div></div><div class="gcard-arr">▼</div></div>
+      <div class="gcard-body">
+        <div class="g-step"><div class="g-num">✓</div><div class="g-content">짧게 답하지 말기 — 이유+예시로 항상 늘리기</div></div>
+        <div class="g-step"><div class="g-num">✓</div><div class="g-content">"Yes/No"로만 끝내지 않기 — 최소 2~3문장</div></div>
+        <div class="g-step"><div class="g-num">✓</div><div class="g-content">"um... uh..." 대신 "Well..." / "That's interesting..." 으로 시간 벌기</div></div>
+        <div class="g-step"><div class="g-num">✓</div><div class="g-content">틀려도 멈추지 말고 계속 — 유창함이 정확성보다 우선</div></div>
+        <div class="g-step"><div class="g-num">✓</div><div class="g-content">저녁에 클로드랑 1시간 Speaking 연습 꾸준히!</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="sg-part1" class="gpage">
+    <div class="gcard open">
+      <div class="gcard-head" onclick="toggleG(this)"><div class="gcard-ico">💬</div><div><div class="gcard-title">Part 1 전략</div><div class="gcard-sub">4~5분 · 일상 주제</div></div><div class="gcard-arr">▼</div></div>
+      <div class="gcard-body">
+        <div class="g-step"><div class="g-num">1</div><div class="g-content"><div class="g-title">답변 길이</div>2~3문장이 적당. 너무 짧으면 감점, 너무 길면 어색.</div></div>
+        <div class="g-step"><div class="g-num">2</div><div class="g-content"><div class="g-title">공식 — Direct + Reason + Example</div>"I really enjoy [주제]. This is because [이유]. For instance, [예시]."</div></div>
+        <div class="g-step"><div class="g-num">3</div><div class="g-content"><div class="g-title">자주 나오는 주제</div>고향, 직업/공부, 취미, 음악, 음식, 날씨, 여행, SNS, 쇼핑, 독서</div></div>
+      </div>
+    </div>
+    <div class="gcard">
+      <div class="gcard-head" onclick="toggleG(this)"><div class="gcard-ico">📋</div><div><div class="gcard-title">Band 비교 예시</div><div class="gcard-sub">Do you enjoy cooking?</div></div><div class="gcard-arr">▼</div></div>
+      <div class="gcard-body">
+        <div class="g-box"><div class="g-box-lbl">Band 4~5 답변</div><div class="g-box-txt">"Yes, I like cooking. I cook every day."</div></div>
+        <div class="g-box"><div class="g-box-lbl">Band 6+ 답변</div><div class="g-box-txt">"I actually really enjoy cooking, particularly Korean food. I find it quite therapeutic after a long day — there's something satisfying about creating a meal from scratch. I tend to experiment with new recipes at weekends."</div></div>
+        <div class="g-tip">💡 "actually", "particularly", "tend to" 같은 자연스러운 표현이 점수를 올려요!</div>
+      </div>
+    </div>
+  </div>
+
+  <div id="sg-part2" class="gpage">
+    <div class="gcard open">
+      <div class="gcard-head" onclick="toggleG(this)"><div class="gcard-ico">🎤</div><div><div class="gcard-title">Part 2 전략</div><div class="gcard-sub">1분 준비 → 2분 스피치</div></div><div class="gcard-arr">▼</div></div>
+      <div class="gcard-body">
+        <div class="g-step"><div class="g-num">1</div><div class="g-content"><div class="g-title">1분 준비 시간 활용법</div>카드의 bullet 4개에 키워드만 메모. 문장으로 쓰려 하지 말 것.</div></div>
+        <div class="g-step"><div class="g-num">2</div><div class="g-content"><div class="g-title">2분 스피치 구조</div>도입 10초 → 본론 bullet 1~4 각 25초 → 마무리 10초</div></div>
+        <div class="g-step"><div class="g-num">3</div><div class="g-content"><div class="g-title">이난씨 강점 활용</div>예술/경험/장소 카드는 Shadow Walk, Puhpowee 같은 본인 작업 경험으로 연결 가능!</div></div>
+      </div>
+    </div>
+    <div class="gcard">
+      <div class="gcard-head" onclick="toggleG(this)"><div class="gcard-ico">🏗</div><div><div class="gcard-title">Part 2 스피치 템플릿</div></div><div class="gcard-arr">▼</div></div>
+      <div class="gcard-body">
+        <div class="g-tmpl">
+          <div class="br">[도입 — 10초]</div>
+          "I'd like to talk about [주제]. This is something I [feel strongly about / remember vividly]."<br><br>
+          <div class="br">[본론]</div>
+          "To begin with, [첫 번째]..."<br>
+          "Moving on to [두 번째]..."<br>
+          "What I particularly remember is [세 번째]..."<br>
+          "The reason this was special is [네 번째]..."<br><br>
+          <div class="br">[마무리 — 10초]</div>
+          "Overall, this is something I [value deeply / found truly memorable]."
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="sg-part3" class="gpage">
+    <div class="gcard open">
+      <div class="gcard-head" onclick="toggleG(this)"><div class="gcard-ico">🧠</div><div><div class="gcard-title">Part 3 전략</div><div class="gcard-sub">4~5분 · 심화 토론</div></div><div class="gcard-arr">▼</div></div>
+      <div class="gcard-body">
+        <div class="g-step"><div class="g-num">1</div><div class="g-content"><div class="g-title">PEEL 공식</div><strong>P</strong>oint 입장 → <strong>E</strong>xplain 이유 → <strong>E</strong>xample 예시 → <strong>L</strong>ink 마무리</div></div>
+        <div class="g-step"><div class="g-num">2</div><div class="g-content"><div class="g-title">시간 벌기</div>"That's an interesting question..." / "It depends on..." 으로 시작해서 생각할 시간 확보.</div></div>
+        <div class="g-step"><div class="g-num">3</div><div class="g-content"><div class="g-title">양쪽 관점 보여주기</div>"While I understand that..., I personally feel that..." — 복잡한 사고를 보여줄수록 점수 올라요.</div></div>
+      </div>
+    </div>
+    <div class="gcard">
+      <div class="gcard-head" onclick="toggleG(this)"><div class="gcard-ico">📋</div><div><div class="gcard-title">Part 3 답변 예시</div><div class="gcard-sub">Do you think art is important in society?</div></div><div class="gcard-arr">▼</div></div>
+      <div class="gcard-body">
+        <div class="g-box"><div class="g-box-txt">"That's a fascinating question. <em>I would argue that</em> art plays a vital role in society — not just as entertainment, but as a means of processing collective experiences. <em>For instance</em>, public art installations can bring communities together. <em>On the other hand</em>, some might argue practical subjects deserve more funding. <em>However</em>, I believe a society that invests in both science and the arts tends to be more innovative overall."</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="sg-phrases" class="gpage">
+    <div class="gcard open">
+      <div class="gcard-head" onclick="toggleG(this)"><div class="gcard-ico">⏳</div><div><div class="gcard-title">시간 벌기 표현</div></div><div class="gcard-arr">▼</div></div>
+      <div class="gcard-body">
+        <div class="g-box"><div class="g-box-txt"><em>Well, that's an interesting question...</em><br><em>Let me think about that for a moment...</em><br><em>That's quite a complex issue, actually...</em><br><em>It depends on how you look at it...</em></div></div>
+      </div>
+    </div>
+    <div class="gcard">
+      <div class="gcard-head" onclick="toggleG(this)"><div class="gcard-ico">💭</div><div><div class="gcard-title">의견 제시 표현</div></div><div class="gcard-arr">▼</div></div>
+      <div class="gcard-body">
+        <div class="g-box"><div class="g-box-txt"><em>I would argue that...</em><br><em>In my view / From my perspective...</em><br><em>Personally, I believe / I feel strongly that...</em><br><em>As far as I'm concerned...</em><br><em>It seems to me that...</em></div></div>
+      </div>
+    </div>
+    <div class="gcard">
+      <div class="gcard-head" onclick="toggleG(this)"><div class="gcard-ico">↔️</div><div><div class="gcard-title">대조 · 양쪽 관점</div></div><div class="gcard-arr">▼</div></div>
+      <div class="gcard-body">
+        <div class="g-box"><div class="g-box-txt"><em>While I understand that..., I personally feel...</em><br><em>On the one hand... On the other hand...</em><br><em>Although some might argue..., I believe...</em><br><em>Despite this, I would still maintain that...</em></div></div>
+      </div>
+    </div>
+    <div class="gcard">
+      <div class="gcard-head" onclick="toggleG(this)"><div class="gcard-ico">📚</div><div><div class="gcard-title">예시 들기 표현</div></div><div class="gcard-arr">▼</div></div>
+      <div class="gcard-body">
+        <div class="g-box"><div class="g-box-txt"><em>For instance / For example...</em><br><em>A good example of this would be...</em><br><em>To give you a concrete example...</em><br><em>In my own experience...</em></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
 
 <script>
+// ── Data ──────────────────────────────────────────────
+// 매일 고정 스케줄 (월~금)
+const DAILY = [
+  {time:"11:00–11:32", subj:"Listening", cls:"sl tl", icon:"🎧", detail:"모의고사 Listening 실전 (30분 + 확인 2분)"},
+  {time:"11:32–12:10", subj:"오답복기",  cls:"sv tv", icon:"📝", detail:"Listening 오답 분석 — 틀린 이유 + 어휘 정리"},
+  {time:"12:10–13:10", subj:"Reading",   cls:"sr tr", icon:"📖", detail:"모의고사 Reading 실전 (60분 엄수)"},
+  {time:"13:10–13:50", subj:"오답복기",  cls:"sv tv", icon:"📝", detail:"Reading 오답 분석 — 유형별 틀린 이유 정리"},
+  {time:"13:50–14:00", subj:"오답노트",  cls:"sk tk", icon:"📓", detail:"오답노트 핵심 어휘·패턴 정리"},
+  {time:"14:00–15:30", subj:"Writing",   cls:"sw tw", icon:"✍️", detail:"Writing 연습 — Task 1 (20분) + Task 2 (40분) + 복기 (30분)"},
+  {time:"저녁 1시간",   subj:"Speaking",  cls:"ss ts", icon:"🎤", detail:"클로드랑 Speaking 모의 연습 1시간"},
+];
+
+const WEEKEND_SAT = [
+  {time:"자유", subj:"오답노트 확인", cls:"sk tk", icon:"📓", detail:"한 주 오답노트 어휘 복습 + 틀린 유형 재확인"},
+];
+const WEEKEND_SUN = [
+  {time:"자유", subj:"휴식", cls:"se te", icon:"🌿", detail:"완전 휴식 — 영어 콘텐츠 가볍게 감상도 OK 🌿"},
+];
+
+// 5월 달력 기준 주차 (5/2 토요일부터 시작)
+// 공부 시작: 5/4(월) ~ 5/29(금)
 const WEEKS = [
   {
-    label:"1주차", theme:"진단 + 형식 파악", color:"#6B8F72", dates:"5/1(금) 첫날",
+    label:"1주차", theme:"진단 + 형식 파악", color:"#6B8F72", dates:"5/4(월) – 5/8(금)",
     days:[
-      { day:"금", date:"5/1 (금)", note:"🎉 D-Day 1 — 시작!", slots:[
-        { time:"11:00–11:32", subj:"Listening", cls:"listening", icon:"🎧", detail:"모의고사 Listening 실전 (30분 + 확인 2분)" },
-        { time:"11:32–12:10", subj:"오답복기",  cls:"review",    icon:"📝", detail:"Listening 오답 분석 — 틀린 이유 + 어휘 정리" },
-        { time:"13:00–14:00", subj:"Reading",   cls:"reading",   icon:"📖", detail:"모의고사 Reading 실전 (60분 엄수)" },
-        { time:"14:00–14:40", subj:"오답복기",  cls:"review",    icon:"📝", detail:"Reading 오답 분석 — 유형별 틀린 이유 정리" },
-        { time:"14:40–15:00", subj:"Writing",   cls:"writing",   icon:"✍️", detail:"Task 1 구조 이론 훑기 — 그래프/표 기술 패턴" },
-        { time:"저녁 20분",    subj:"Speaking",  cls:"speaking",  icon:"🎤", detail:"Part 1 질문 3개 즉흥 답변 녹음" },
-      ]},
-      { day:"토", date:"5/2 (토)", weekend:true, slots:[
-        { time:"자유", subj:"단어복습", cls:"vocab", icon:"📚", detail:"첫날 오답 어휘 정리 + 암기" },
-      ]},
-      { day:"일", date:"5/3 (일)", weekend:true, slots:[
-        { time:"자유", subj:"휴식", cls:"rest", icon:"🌿", detail:"영어 콘텐츠 가볍게 감상 — 공부 강요 금지 🌿" },
-      ]},
+      {day:"월",date:"5/4 (월)",note:"🎉 첫 번째 공부 날!"},
+      {day:"화",date:"5/5 (화)"},
+      {day:"수",date:"5/6 (수)"},
+      {day:"목",date:"5/7 (목)"},
+      {day:"금",date:"5/8 (금)",note:"🔥 첫 주 마무리"},
+      {day:"토",date:"5/9 (토)",weekend:true,slots:WEEKEND_SAT},
+      {day:"일",date:"5/10 (일)",weekend:true,slots:WEEKEND_SUN},
     ]
   },
   {
-    label:"2주차", theme:"진단 + 형식 파악", color:"#6B8F72", dates:"5/4(월) – 5/8(금)",
+    label:"2주차", theme:"Writing 집중 시작", color:"#7B9E87", dates:"5/11(월) – 5/15(금)",
     days:[
-      { day:"월", date:"5/4 (월)", slots:[
-        { time:"11:00–11:32", subj:"Listening", cls:"listening", icon:"🎧", detail:"모의고사 Listening 실전 (32분)" },
-        { time:"11:32–12:10", subj:"오답복기",  cls:"review",    icon:"📝", detail:"Listening 오답 — 영국/호주 발음 집중 재청취" },
-        { time:"13:00–14:00", subj:"Writing",   cls:"writing",   icon:"✍️", detail:"Task 1 샘플 답안 분석 (Band 6/7 비교)" },
-        { time:"14:00–15:00", subj:"Writing",   cls:"writing",   icon:"✍️", detail:"Task 2 에세이 구조 이론 (Intro → Body → Conclusion)" },
-        { time:"저녁 20분",    subj:"Speaking",  cls:"speaking",  icon:"🎤", detail:"Part 2 카드 1개 — 2분 스피치 연습" },
-      ]},
-      { day:"화", date:"5/5 (화)", slots:[
-        { time:"11:00–12:00", subj:"Reading",   cls:"reading",   icon:"📖", detail:"모의고사 Reading 실전 (60분 엄수)" },
-        { time:"12:00–12:40", subj:"오답복기",  cls:"review",    icon:"📝", detail:"Reading 오답 — True/False/Not Given 유형 집중 분석" },
-        { time:"13:30–14:02", subj:"Listening", cls:"listening", icon:"🎧", detail:"모의고사 Listening 실전 (32분)" },
-        { time:"14:02–14:40", subj:"오답복기",  cls:"review",    icon:"📝", detail:"Listening 섹션별 오답 패턴 파악" },
-        { time:"저녁 20분",    subj:"Speaking",  cls:"speaking",  icon:"🎤", detail:"Part 1 질문 3개 녹음 후 셀프 피드백" },
-      ]},
-      { day:"수", date:"5/6 (수)", slots:[
-        { time:"11:00–11:20", subj:"Writing",   cls:"writing",   icon:"✍️", detail:"Task 1 직접 작성 (20분 타이머 엄수)" },
-        { time:"11:20–12:00", subj:"오답복기",  cls:"review",    icon:"📝", detail:"Task 1 샘플 답안과 비교 — 표현/구조 차이 분석" },
-        { time:"13:00–14:00", subj:"Reading",   cls:"reading",   icon:"📖", detail:"Matching Headings 유형 집중 연습 (60분)" },
-        { time:"14:00–14:40", subj:"오답복기",  cls:"review",    icon:"📝", detail:"Reading 오답 분석" },
-        { time:"저녁 30분",    subj:"Listening", cls:"listening", icon:"🎧", detail:"섹션 3·4 (강의/토론) 집중 훈련 (32분)" },
-      ]},
-      { day:"목", date:"5/7 (목)", slots:[
-        { time:"11:00–11:40", subj:"Writing",   cls:"writing",   icon:"✍️", detail:"Task 2 에세이 첫 작성 (40분 타이머 엄수)" },
-        { time:"11:40–12:20", subj:"오답복기",  cls:"review",    icon:"📝", detail:"Task 2 샘플 Band 6 답안과 비교 분석" },
-        { time:"13:00–14:00", subj:"Reading",   cls:"reading",   icon:"📖", detail:"모의고사 Reading 실전 (60분 엄수)" },
-        { time:"14:00–14:40", subj:"오답복기",  cls:"review",    icon:"📝", detail:"Reading 오답 분석 + 어휘 정리" },
-        { time:"저녁 20분",    subj:"Speaking",  cls:"speaking",  icon:"🎤", detail:"Part 3 주제 2개 — 의견 + 이유 즉흥 연습" },
-      ]},
-      { day:"금", date:"5/8 (금)", note:"🔥 주간 미니 실전", slots:[
-        { time:"11:00–11:32", subj:"Listening",   cls:"listening", icon:"🎧", detail:"실전 (32분)" },
-        { time:"11:32–12:32", subj:"Reading",     cls:"reading",   icon:"📖", detail:"실전 (60분 엄수)" },
-        { time:"13:30–14:30", subj:"Writing",     cls:"writing",   icon:"✍️", detail:"Task 1 (20분) + Task 2 (40분) 실전처럼" },
-        { time:"14:30–15:10", subj:"오답복기",    cls:"review",    icon:"📝", detail:"L·R·W 전 영역 채점 + 약점 기록" },
-        { time:"저녁 20분",    subj:"Speaking",   cls:"speaking",  icon:"🎤", detail:"Part 1·2 연속 연습" },
-      ]},
-      { day:"토", date:"5/9 (토)", weekend:true, slots:[{ time:"자유", subj:"단어복습", cls:"vocab", icon:"📚", detail:"한 주 오답 어휘 정리 + 암기" }]},
-      { day:"일", date:"5/10 (일)", weekend:true, slots:[{ time:"자유", subj:"휴식", cls:"rest", icon:"🌿", detail:"영어 콘텐츠 가볍게 감상 — 공부 강요 금지" }]},
+      {day:"월",date:"5/11 (월)"},
+      {day:"화",date:"5/12 (화)"},
+      {day:"수",date:"5/13 (수)"},
+      {day:"목",date:"5/14 (목)"},
+      {day:"금",date:"5/15 (금)",note:"🔥 2주 마무리"},
+      {day:"토",date:"5/16 (토)",weekend:true,slots:WEEKEND_SAT},
+      {day:"일",date:"5/17 (일)",weekend:true,slots:WEEKEND_SUN},
     ]
   },
   {
-    label:"3주차", theme:"Writing 집중", color:"#B8864E", dates:"5/11(월) – 5/15(금)",
+    label:"3주차", theme:"Writing 심화", color:"#B8864E", dates:"5/18(월) – 5/22(금)",
     days:[
-      { day:"월", date:"5/11 (월)", slots:[
-        { time:"11:00–11:40", subj:"Writing",   cls:"writing",   icon:"✍️", detail:"Task 2 작성 — Opinion Essay 유형 (40분 타이머)" },
-        { time:"11:40–12:20", subj:"오답복기",  cls:"review",    icon:"📝", detail:"Task 2 채점 기준 4가지로 자가 점검" },
-        { time:"13:00–13:32", subj:"Listening", cls:"listening", icon:"🎧", detail:"모의고사 Listening 실전 (32분)" },
-        { time:"13:32–14:10", subj:"오답복기",  cls:"review",    icon:"📝", detail:"Listening 오답 분석" },
-        { time:"14:10–15:10", subj:"Reading",   cls:"reading",   icon:"📖", detail:"모의고사 Reading 실전 (60분)" },
-        { time:"저녁 20분",    subj:"Speaking",  cls:"speaking",  icon:"🎤", detail:"Part 1 질문 5개 연속 답변 녹음" },
-      ]},
-      { day:"화", date:"5/12 (화)", slots:[
-        { time:"11:00–11:20", subj:"Writing",   cls:"writing",   icon:"✍️", detail:"Task 1 작성 — Bar Chart / Pie Chart (20분 타이머)" },
-        { time:"11:20–12:00", subj:"오답복기",  cls:"review",    icon:"📝", detail:"Task 1 샘플과 비교 — 표현/데이터 기술 분석" },
-        { time:"13:00–14:00", subj:"Reading",   cls:"reading",   icon:"📖", detail:"Summary Completion 유형 집중 (60분)" },
-        { time:"14:00–14:40", subj:"오답복기",  cls:"review",    icon:"📝", detail:"Reading 오답 분석" },
-        { time:"저녁 20분",    subj:"Speaking",  cls:"speaking",  icon:"🎤", detail:"Part 2 새 카드 — 예술/문화 주제" },
-      ]},
-      { day:"수", date:"5/13 (수)", slots:[
-        { time:"11:00–11:40", subj:"Writing",   cls:"writing",   icon:"✍️", detail:"Task 2 작성 — Discussion Essay 유형 (40분 타이머)" },
-        { time:"11:40–12:20", subj:"오답복기",  cls:"review",    icon:"📝", detail:"Task 2 Cohesion & Coherence 집중 점검" },
-        { time:"13:00–13:32", subj:"Listening", cls:"listening", icon:"🎧", detail:"모의고사 Listening 실전 — 섹션 3·4 집중 (32분)" },
-        { time:"13:32–14:10", subj:"오답복기",  cls:"review",    icon:"📝", detail:"Listening 오답 분석" },
-        { time:"14:10–15:10", subj:"Reading",   cls:"reading",   icon:"📖", detail:"모의고사 Reading 실전 (60분 엄수)" },
-        { time:"저녁 20분",    subj:"Speaking",  cls:"speaking",  icon:"🎤", detail:"Part 3 사회/문화 주제 의견 전개 연습" },
-      ]},
-      { day:"목", date:"5/14 (목)", slots:[
-        { time:"11:00–11:20", subj:"Writing",   cls:"writing",   icon:"✍️", detail:"Task 1 작성 — Line Graph / Process Diagram (20분)" },
-        { time:"11:20–12:00", subj:"오답복기",  cls:"review",    icon:"📝", detail:"Task 1 Lexical Resource — 데이터 표현 어휘 정리" },
-        { time:"13:00–14:00", subj:"Reading",   cls:"reading",   icon:"📖", detail:"Multiple Choice 유형 집중 (60분)" },
-        { time:"14:00–14:40", subj:"오답복기",  cls:"review",    icon:"📝", detail:"Reading 오답 분석" },
-        { time:"저녁 20분",    subj:"Speaking",  cls:"speaking",  icon:"🎤", detail:"Part 1+2 연속 연습 (실전처럼)" },
-      ]},
-      { day:"금", date:"5/15 (금)", note:"🔥 주간 미니 실전", slots:[
-        { time:"11:00–11:32", subj:"Listening", cls:"listening", icon:"🎧", detail:"실전 (32분)" },
-        { time:"11:32–12:32", subj:"Reading",   cls:"reading",   icon:"📖", detail:"실전 (60분 엄수)" },
-        { time:"13:30–14:30", subj:"Writing",   cls:"writing",   icon:"✍️", detail:"Task 1 (20분) + Task 2 (40분) — Problem & Solution 유형" },
-        { time:"14:30–15:10", subj:"오답복기",  cls:"review",    icon:"📝", detail:"L·R·W 전 영역 채점 + 3주차 약점 정리" },
-        { time:"저녁 20분",    subj:"Speaking",  cls:"speaking",  icon:"🎤", detail:"Part 2·3 연속 녹음 후 셀프 피드백" },
-      ]},
-      { day:"토", date:"5/16 (토)", weekend:true, slots:[{ time:"자유", subj:"단어복습", cls:"vocab", icon:"📚", detail:"한 주 오답 어휘 정리 + 암기" }]},
-      { day:"일", date:"5/17 (일)", weekend:true, slots:[{ time:"자유", subj:"휴식", cls:"rest", icon:"🌿", detail:"영어 콘텐츠 가볍게 감상 — 공부 강요 금지" }]},
+      {day:"월",date:"5/18 (월)"},
+      {day:"화",date:"5/19 (화)"},
+      {day:"수",date:"5/20 (수)"},
+      {day:"목",date:"5/21 (목)"},
+      {day:"금",date:"5/22 (금)",note:"🔥 3주 마무리"},
+      {day:"토",date:"5/23 (토)",weekend:true,slots:WEEKEND_SAT},
+      {day:"일",date:"5/24 (일)",weekend:true,slots:WEEKEND_SUN},
     ]
   },
   {
-    label:"4주차", theme:"실전 훈련", color:"#7B6E9E", dates:"5/18(월) – 5/22(금)",
+    label:"4주차", theme:"실전 훈련", color:"#7B6E9E", dates:"5/25(월) – 5/29(금)",
     days:[
-      { day:"월", date:"5/18 (월)", note:"📋 첫 풀 모의고사", slots:[
-        { time:"11:00–11:32", subj:"Listening", cls:"listening", icon:"🎧", detail:"실전 (32분)" },
-        { time:"11:32–12:32", subj:"Reading",   cls:"reading",   icon:"📖", detail:"실전 (60분 엄수)" },
-        { time:"13:30–14:30", subj:"Writing",   cls:"writing",   icon:"✍️", detail:"Task 1 (20분) + Task 2 (40분) 실전" },
-        { time:"14:30–15:10", subj:"오답복기",  cls:"review",    icon:"📝", detail:"L·R·W 전 영역 채점 + 약점 기록" },
-        { time:"저녁 20분",    subj:"Speaking",  cls:"speaking",  icon:"🎤", detail:"모의 인터뷰 Part 1·2·3 전부 녹음" },
-      ]},
-      { day:"화", date:"5/19 (화)", slots:[
-        { time:"11:00–12:00", subj:"오답복기", cls:"review", icon:"📝", detail:"월요일 Writing 오답 심층 분석 + 재작성" },
-        { time:"12:00–13:00", subj:"오답복기", cls:"review", icon:"📝", detail:"Listening 오답 — 틀린 섹션 재청취 + 이유 분석" },
-        { time:"13:30–14:30", subj:"오답복기", cls:"review", icon:"📝", detail:"Reading 오답 — 오답 지문 재독 + 어휘 정리" },
-        { time:"저녁 20분",   subj:"Speaking", cls:"speaking", icon:"🎤", detail:"녹음 셀프 피드백 + 약한 파트 재녹음" },
-      ]},
-      { day:"수", date:"5/20 (수)", note:"📋 두 번째 풀 모의고사", slots:[
-        { time:"11:00–11:32", subj:"Listening", cls:"listening", icon:"🎧", detail:"실전 (32분)" },
-        { time:"11:32–12:32", subj:"Reading",   cls:"reading",   icon:"📖", detail:"실전 (60분 엄수)" },
-        { time:"13:30–14:30", subj:"Writing",   cls:"writing",   icon:"✍️", detail:"Task 1 (20분) + Task 2 (40분) 실전" },
-        { time:"14:30–15:10", subj:"오답복기",  cls:"review",    icon:"📝", detail:"채점 + 월요일 대비 점수 변화 확인" },
-        { time:"저녁 20분",    subj:"Speaking",  cls:"speaking",  icon:"🎤", detail:"Part 2 예술 관련 주제 스피치" },
-      ]},
-      { day:"목", date:"5/21 (목)", slots:[
-        { time:"11:00–12:00", subj:"오답복기",  cls:"review",    icon:"📝", detail:"수요일 Writing 재작성 + 점검" },
-        { time:"12:00–13:00", subj:"Reading",   cls:"reading",   icon:"📖", detail:"시간 단축 훈련 — 55분 안에 40문제 도전" },
-        { time:"13:00–13:40", subj:"오답복기",  cls:"review",    icon:"📝", detail:"Reading 오답 분석" },
-        { time:"14:00–14:32", subj:"Listening", cls:"listening", icon:"🎧", detail:"섹션 4 강의 유형 집중 (32분)" },
-        { time:"저녁 20분",    subj:"Speaking",  cls:"speaking",  icon:"🎤", detail:"Part 3 추상적 질문 즉흥 답변" },
-      ]},
-      { day:"금", date:"5/22 (금)", note:"📋 세 번째 풀 모의고사", slots:[
-        { time:"11:00–11:32", subj:"Listening", cls:"listening", icon:"🎧", detail:"실전 (32분)" },
-        { time:"11:32–12:32", subj:"Reading",   cls:"reading",   icon:"📖", detail:"실전 (60분 엄수)" },
-        { time:"13:30–14:30", subj:"Writing",   cls:"writing",   icon:"✍️", detail:"Task 1 (20분) + Task 2 (40분) 실전" },
-        { time:"14:30–15:10", subj:"오답복기",  cls:"review",    icon:"📝", detail:"채점 + 이번 주 약점 영역 최종 확인" },
-        { time:"저녁 20분",    subj:"Speaking",  cls:"speaking",  icon:"🎤", detail:"이번 주 Speaking 녹음 전체 다시 듣기" },
-      ]},
-      { day:"토", date:"5/23 (토)", weekend:true, slots:[{ time:"자유", subj:"단어복습", cls:"vocab", icon:"📚", detail:"한 주 오답 어휘 정리 + 암기" }]},
-      { day:"일", date:"5/24 (일)", weekend:true, slots:[{ time:"자유", subj:"휴식", cls:"rest", icon:"🌿", detail:"영어 콘텐츠 가볍게 감상 — 공부 강요 금지" }]},
-    ]
-  },
-  {
-    label:"5주차", theme:"마무리 + 약점 보완", color:"#B86868", dates:"5/25(월) – 5/29(금)",
-    days:[
-      { day:"월", date:"5/25 (월)", note:"📋 네 번째 풀 모의고사", slots:[
-        { time:"11:00–11:32", subj:"Listening", cls:"listening", icon:"🎧", detail:"실전 (32분) — 시험 당일 루틴으로" },
-        { time:"11:32–12:32", subj:"Reading",   cls:"reading",   icon:"📖", detail:"실전 (60분 엄수)" },
-        { time:"13:30–14:30", subj:"Writing",   cls:"writing",   icon:"✍️", detail:"Task 1 (20분) + Task 2 (40분) 실전" },
-        { time:"14:30–15:10", subj:"오답복기",  cls:"review",    icon:"📝", detail:"채점 + 약점 목록 최종 정리" },
-        { time:"저녁 20분",    subj:"Speaking",  cls:"speaking",  icon:"🎤", detail:"Part 1·2·3 전 파트 연속 연습" },
-      ]},
-      { day:"화", date:"5/26 (화)", slots:[
-        { time:"11:00–12:00", subj:"오답복기",  cls:"review",    icon:"📝", detail:"약점 Writing 유형 재작성 + 집중 분석" },
-        { time:"12:00–13:00", subj:"Reading",   cls:"reading",   icon:"📖", detail:"가장 틀린 유형 집중 (60분)" },
-        { time:"13:00–13:40", subj:"오답복기",  cls:"review",    icon:"📝", detail:"Reading 오답 분석" },
-        { time:"14:00–14:32", subj:"Listening", cls:"listening", icon:"🎧", detail:"가장 틀린 섹션 집중 재훈련 (32분)" },
-        { time:"저녁 20분",    subj:"Speaking",  cls:"speaking",  icon:"🎤", detail:"약점 파트 집중 재연습" },
-      ]},
-      { day:"수", date:"5/27 (수)", note:"📋 다섯 번째 풀 모의고사", slots:[
-        { time:"11:00–11:32", subj:"Listening", cls:"listening", icon:"🎧", detail:"실전 (32분)" },
-        { time:"11:32–12:32", subj:"Reading",   cls:"reading",   icon:"📖", detail:"실전 (60분 엄수)" },
-        { time:"13:30–14:30", subj:"Writing",   cls:"writing",   icon:"✍️", detail:"Task 1 (20분) + Task 2 (40분) 실전" },
-        { time:"14:30–15:10", subj:"오답복기",  cls:"review",    icon:"📝", detail:"채점 + 최종 점수 예측" },
-        { time:"저녁 20분",    subj:"Speaking",  cls:"speaking",  icon:"🎤", detail:"Part 1·2·3 셀프 피드백 집중" },
-      ]},
-      { day:"목", date:"5/28 (목)", slots:[
-        { time:"11:00–11:20", subj:"Writing",   cls:"writing",   icon:"✍️", detail:"Task 1 최종 1편 (20분)" },
-        { time:"11:20–12:00", subj:"Writing",   cls:"writing",   icon:"✍️", detail:"Task 2 최종 1편 (40분)" },
-        { time:"12:00–12:40", subj:"오답복기",  cls:"review",    icon:"📝", detail:"Writing 최종 점검 + 표현 정리" },
-        { time:"13:30–14:30", subj:"Reading",   cls:"reading",   icon:"📖", detail:"가볍게 1세트 (60분)" },
-        { time:"14:30–15:00", subj:"오답복기",  cls:"review",    icon:"📝", detail:"전체 오답 노트 최종 정리" },
-      ]},
-      { day:"금", date:"5/29 (금)", note:"🏁 마지막 공부 날!", slots:[
-        { time:"11:00–11:32", subj:"Listening", cls:"listening", icon:"🎧", detail:"마지막 실전 모의고사 (32분)" },
-        { time:"11:32–12:32", subj:"Reading",   cls:"reading",   icon:"📖", detail:"마지막 실전 모의고사 (60분)" },
-        { time:"13:30–14:30", subj:"Writing",   cls:"writing",   icon:"✍️", detail:"마지막 Task 1 + Task 2 실전" },
-        { time:"14:30–15:00", subj:"오답복기",  cls:"review",    icon:"📝", detail:"최종 점수 확인 + 한 달 성장 기록 ✨" },
-        { time:"저녁",         subj:"마무리",    cls:"finish",    icon:"🌙", detail:"시험 준비물 점검 — 가볍게만" },
-      ]},
-      { day:"토", date:"5/30 (토)", weekend:true, slots:[{ time:"자유", subj:"단어복습", cls:"vocab", icon:"📚", detail:"최종 어휘 총복습 — 한 달치 오답 어휘 마무리" }]},
-      { day:"일", date:"5/31 (일)", weekend:true, slots:[{ time:"자유", subj:"휴식", cls:"rest", icon:"🎉", detail:"완전 휴식 🎉 한 달 정말 수고했어요!" }]},
+      {day:"월",date:"5/25 (월)"},
+      {day:"화",date:"5/26 (화)"},
+      {day:"수",date:"5/27 (수)"},
+      {day:"목",date:"5/28 (목)"},
+      {day:"금",date:"5/29 (금)",note:"🏁 마지막 날! 수고했어요 🎉"},
+      {day:"토",date:"5/30 (토)",weekend:true,slots:WEEKEND_SAT},
+      {day:"일",date:"5/31 (일)",weekend:true,slots:[{time:"자유",subj:"휴식",cls:"se te",icon:"🎉",detail:"완전 휴식 🎉 한 달 정말 수고했어요!"}]},
     ]
   },
 ];
 
-let currentWeek = 0;
+// ── Storage ──────────────────────────────────────────
+function sKey(wi,di,si){return`ielts2_w${wi}_d${di}_s${si}`}
+function isDone(wi,di,si){try{return localStorage.getItem(sKey(wi,di,si))==='1'}catch(e){return false}}
+function toggleDone(wi,di,si){try{const k=sKey(wi,di,si);localStorage.setItem(k,localStorage.getItem(k)==='1'?'0':'1')}catch(e){}}
 
-// Storage helpers
-function storageKey(wi, di, si) { return `ielts_w${wi}_d${di}_s${si}`; }
-function isDone(wi, di, si) {
-  try { return localStorage.getItem(storageKey(wi,di,si)) === '1'; } catch(e) { return false; }
-}
-function toggleDone(wi, di, si) {
-  try {
-    const key = storageKey(wi,di,si);
-    localStorage.setItem(key, localStorage.getItem(key)==='1' ? '0' : '1');
-  } catch(e) {}
-}
-
-function countAll() {
-  let total = 0, done = 0;
-  WEEKS.forEach((w,wi) => w.days.forEach((d,di) => d.slots.forEach((_,si) => {
-    total++; if(isDone(wi,di,si)) done++;
-  })));
-  return {total, done};
+function countAll(){
+  let total=0,done=0;
+  WEEKS.forEach((w,wi)=>w.days.forEach((d,di)=>{
+    const slots=d.slots||DAILY;
+    slots.forEach((_,si)=>{total++;if(isDone(wi,di,si))done++;});
+  }));
+  return{total,done};
 }
 
-function updateProgress() {
-  const {total, done} = countAll();
-  const pct = total ? Math.round(done/total*100) : 0;
-  document.getElementById('progressBar').style.width = pct + '%';
-  document.getElementById('progressLabel').textContent = `완료 ${done} / ${total} (${pct}%)`;
+function updateProgress(){
+  const{total,done}=countAll();
+  const pct=total?Math.round(done/total*100):0;
+  document.getElementById('progBar').style.width=pct+'%';
+  document.getElementById('progLabel').textContent=`완료 ${done} / ${total} (${pct}%)`;
 }
 
-function renderTabs() {
-  const el = document.getElementById('tabs');
-  el.innerHTML = WEEKS.map((w,i) => `
-    <div class="tab ${i===currentWeek?'active':''}" 
-         style="${i===currentWeek?`background:${w.color};border-color:${w.color}`:''}"
-         onclick="selectWeek(${i})">${w.label}</div>
+// ── Render ───────────────────────────────────────────
+let curWeek=0;
+
+function renderTabs(){
+  document.getElementById('wtabs').innerHTML=WEEKS.map((w,i)=>`
+    <div class="wtab ${i===curWeek?'active':''}"
+         style="${i===curWeek?`background:${w.color};border-color:${w.color}`:''}"
+         onclick="selWeek(${i})">${w.label}</div>
   `).join('');
 }
 
-function renderWeek() {
-  const w = WEEKS[currentWeek];
-  const wh = document.getElementById('weekHeader');
-  wh.style.background = w.color + '18';
-  wh.style.border = `1px solid ${w.color}40`;
-  wh.innerHTML = `
-    <div class="week-header-label" style="color:${w.color}">${w.label} · ${w.dates}</div>
-    <div class="week-header-theme">${w.theme}</div>
-  `;
+function renderWeek(){
+  const w=WEEKS[curWeek];
+  const wh=document.getElementById('weekHdr');
+  wh.style.background=w.color+'18';
+  wh.style.border=`1px solid ${w.color}40`;
+  wh.innerHTML=`<div class="week-hdr-lbl" style="color:${w.color}">${w.label} · ${w.dates}</div><div class="week-hdr-theme">${w.theme}</div>`;
 
-  const el = document.getElementById('days');
-  el.innerHTML = w.days.map((d, di) => `
-    <div class="day-card ${d.weekend?'weekend':''}">
-      <div class="day-head" style="background:${d.weekend?'#EEEEEA':w.color+'12'}; border-color:${d.weekend?'#E0E0D0':w.color+'30'}">
+  document.getElementById('days').innerHTML=w.days.map((d,di)=>{
+    const slots=d.slots||DAILY;
+    return`<div class="day-card ${d.weekend?'weekend':''}">
+      <div class="day-head" style="background:${d.weekend?'#EEEEEA':w.color+'10'};border-color:${d.weekend?'#E0E0D0':w.color+'28'}">
         <div class="day-dot" style="background:${d.weekend?'#B8B8A8':w.color}">${d.day}</div>
-        <div class="day-info">
+        <div>
           <div class="day-date">${d.date}</div>
-          ${d.note ? `<div class="day-note" style="color:${w.color}">${d.note}</div>` : ''}
+          ${d.note?`<div class="day-note" style="color:${w.color}">${d.note}</div>`:''}
         </div>
       </div>
       <div class="slots">
-        ${d.slots.map((s,si) => {
-          const done = isDone(currentWeek, di, si);
-          return `
-          <div class="slot s-${s.cls} ${done?'done':''}" onclick="toggleSlot(${di},${si},this)">
+        ${slots.map((s,si)=>{
+          const done=isDone(curWeek,di,si);
+          return`<div class="slot ${s.cls} ${done?'done':''}" onclick="toggleSlot(${di},${si},this)">
             <div class="slot-icon">${s.icon}</div>
             <div class="slot-content">
               <div class="slot-meta">
                 <span class="slot-time">${s.time}</span>
-                <span class="slot-subject t-${s.cls}">${s.subj}</span>
+                <span class="slot-subj ${s.cls.split(' ')[1]}">${s.subj}</span>
               </div>
               <div class="slot-detail">${s.detail}</div>
             </div>
-            <div class="slot-check">${done?'✓':''}</div>
+            <div class="slot-chk">${done?'✓':''}</div>
           </div>`;
         }).join('')}
       </div>
-    </div>
-  `).join('');
+    </div>`;
+  }).join('');
 }
 
-function toggleSlot(di, si, el) {
-  toggleDone(currentWeek, di, si);
-  const done = isDone(currentWeek, di, si);
-  el.classList.toggle('done', done);
-  el.querySelector('.slot-check').textContent = done ? '✓' : '';
+function toggleSlot(di,si,el){
+  toggleDone(curWeek,di,si);
+  const done=isDone(curWeek,di,si);
+  el.classList.toggle('done',done);
+  el.querySelector('.slot-chk').textContent=done?'✓':'';
   updateProgress();
 }
 
-function selectWeek(i) {
-  currentWeek = i;
-  renderTabs();
-  renderWeek();
-}
+function selWeek(i){curWeek=i;renderTabs();renderWeek();}
 
-function toggleInfo() {
-  const box = document.getElementById('infoBox');
-  const btn = document.querySelector('.info-toggle');
-  box.classList.toggle('open');
-  btn.textContent = box.classList.contains('open') ? '▲ 시험 시간 닫기' : '▼ 컴퓨터 기반 시험 시간 확인';
-}
-
-function confirmReset() {
-  if(confirm(`${WEEKS[currentWeek].label} 체크를 모두 초기화할까요?`)) {
-    const w = WEEKS[currentWeek];
-    w.days.forEach((d,di) => d.slots.forEach((_,si) => {
-      try { localStorage.setItem(storageKey(currentWeek,di,si),'0'); } catch(e){}
-    }));
-    renderWeek();
-    updateProgress();
+function confirmReset(){
+  if(confirm(`${WEEKS[curWeek].label} 체크를 모두 초기화할까요?`)){
+    WEEKS[curWeek].days.forEach((d,di)=>{
+      const slots=d.slots||DAILY;
+      slots.forEach((_,si)=>{try{localStorage.setItem(sKey(curWeek,di,si),'0')}catch(e){}});
+    });
+    renderWeek();updateProgress();
   }
 }
 
-// Init
-renderTabs();
-renderWeek();
-updateProgress();
+// ── Navigation ───────────────────────────────────────
+function switchMain(mode,btn){
+  document.querySelectorAll('.mnb').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page-'+mode).classList.add('active');
+}
+
+function switchG(group,pageId,btn){
+  const wrap=btn.closest('.guide-wrap');
+  wrap.querySelectorAll('.gnb').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  wrap.querySelectorAll('.gpage').forEach(p=>p.classList.remove('active'));
+  document.getElementById(pageId).classList.add('active');
+}
+
+function toggleG(head){head.closest('.gcard').classList.toggle('open');}
+
+// ── Init ─────────────────────────────────────────────
+renderTabs();renderWeek();updateProgress();
 </script>
 </body>
 </html>
